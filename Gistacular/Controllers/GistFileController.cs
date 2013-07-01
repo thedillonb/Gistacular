@@ -8,23 +8,56 @@ namespace Gistacular.Controllers
 {
     public class GistFileController : FileSourceController
     {
-        private string _url;
+        GistFileModel _model;
+        string _content;
+
         public GistFileController(GistFileModel model)
         {
-            _url = model.RawUrl;
+            Title = model.Filename;
+            _model = model;
+
+            //We can view markdown!
+            if (model.Language.Equals("Markdown"))
+            {
+                NavigationItem.RightBarButtonItem = new UIBarButtonItem(NavigationButton.Create(Images.ViewButton, () => {
+                    NavigationController.PushViewController(new GistViewableFileController(model, _content), true);
+                }));
+            }
+        }
+
+        protected override void Request()
+        {
+            _content = Application.Client.API.GetGistFile(_model.RawUrl);
+            LoadSourceData(System.Security.SecurityElement.Escape(_content));
+        }
+    }
+
+    public class GistViewableFileController : FileSourceController
+    {
+        GistFileModel _model;
+        string _content;
+
+        public GistViewableFileController(GistFileModel model, string content)
+        {
+            _content = content;
+            _model = model;
             Title = model.Filename;
         }
 
         protected override void Request()
         {
-            var data = Application.Client.API.GetGistFile(_url);
-            LoadRawData(System.Security.SecurityElement.Escape(data));
+            //If we already have it no need to request it again
+            if (_content == null)
+                _content = Application.Client.API.GetGistFile(_model.RawUrl);
+
+            var data = Application.Client.API.GetMarkdown(_content);
+            LoadRawData(data);
         }
     }
 
     public abstract class FileSourceController : WebViewController
     {
-        protected static string TempDir = System.IO.Path.Combine(MonoTouch.Utilities.BaseDir, "tmp", "source");
+        bool _loaded = false;
 
         public FileSourceController()
             : base(false)
@@ -37,21 +70,14 @@ namespace Gistacular.Controllers
         {
             base.ViewWillAppear(animated);
 
-            //Create the temp directory if it does not exist!
-            if (!System.IO.Directory.Exists(TempDir))
-                System.IO.Directory.CreateDirectory(TempDir);
-
             //Do the request
-            this.DoWork(Request, ex => ErrorView.Show(this.View, ex.Message));
-        }
-
-        public override void ViewWillDisappear(bool animated)
-        {
-            base.ViewWillDisappear(animated);
-
-            //Remove all files within the temp directory
-            if (System.IO.Directory.Exists(TempDir))
-                System.IO.Directory.Delete(TempDir, true);
+            if (_loaded == false)
+            {
+                this.DoWork(() => {
+                    Request();
+                    _loaded = true;
+                }, ex => ErrorView.Show(this.View, ex.Message));
+            }
         }
 
         protected override void OnLoadError(object sender, UIWebErrorArgs e)
@@ -67,6 +93,13 @@ namespace Gistacular.Controllers
         protected void LoadRawData(string data)
         {
             InvokeOnMainThread(delegate {
+                Web.LoadHtmlString(data, null);
+            });
+        }
+
+        protected void LoadSourceData(string data)
+        {
+            InvokeOnMainThread(delegate {
                 var html = System.IO.File.ReadAllText("SourceBrowser/index.html");
                 var filled = html.Replace("{DATA}", data);
 
@@ -75,12 +108,6 @@ namespace Gistacular.Controllers
 
                 Web.LoadHtmlString(filled, NSUrl.FromString("file:/" + url + "//"));
             });
-        }
-
-        protected void LoadFile(string path)
-        {
-            var uri = Uri.EscapeUriString("file://" + path) + "#" + Environment.TickCount;
-            InvokeOnMainThread(() => Web.LoadRequest(new NSUrlRequest(new NSUrl(uri))));
         }
     }
 }

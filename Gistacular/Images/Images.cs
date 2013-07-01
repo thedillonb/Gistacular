@@ -21,6 +21,8 @@ namespace Gistacular
         public static UIImage TabsBackground = UIImage.FromBundle("/Images/tabs_bg");
         public static UIImage TabsHighlighted = UIImage.FromBundle("/Images/tabs_highlighted");
         public static UIImage TabsVertical = UIImage.FromBundle("/Images/tabs_vertical");
+
+        public static UIImage ViewButton = UIImage.FromBundle("/Images/view");
 	}
 }
 
