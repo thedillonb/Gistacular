@@ -133,11 +133,11 @@ namespace Gistacular.Controllers
             
                 //The bottom bar
                 ToolbarItems = new []
-            {
-                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                new UIBarButtonItem(_segment),
-                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
-            };
+                {
+                    new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                    new UIBarButtonItem(_segment),
+                    new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
+                };
             }
         }
         

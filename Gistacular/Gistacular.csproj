@@ -151,6 +151,7 @@
     <Compile Include="Views\NavigationButton.cs" />
     <Compile Include="Controllers\GistInfoController.cs" />
     <Compile Include="Elements\SubcaptionElement.cs" />
+    <Compile Include="Views\TabButtonView.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -172,7 +173,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Images\linen.png" />
     <BundleResource Include="Images\anonymous.png" />
     <BundleResource Include="Images\anonymous%402x.png" />
     <BundleResource Include="Images\githublogo.png" />
@@ -194,6 +194,12 @@
     <BundleResource Include="Images\back-button%402x.png" />
     <BundleResource Include="Images\add-button.png" />
     <BundleResource Include="Images\add-button%402x.png" />
+    <BundleResource Include="Images\tabs_bg%402x.png" />
+    <BundleResource Include="Images\tabs_bg.png" />
+    <BundleResource Include="Images\tabs_vertical.png" />
+    <BundleResource Include="Images\tabs_vertical%402x.png" />
+    <BundleResource Include="Images\tabs_highlighted.png" />
+    <BundleResource Include="Images\tabs_highlighted%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Controllers\GitHubLoginController.xib" />

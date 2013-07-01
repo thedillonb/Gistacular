@@ -77,7 +77,7 @@ namespace Gistacular
 //            
             var textAttrs = new UITextAttributes { TextColor = UIColor.White, TextShadowColor = UIColor.FromRGB(40, 40, 40), TextShadowOffset = new UIOffset(0, 1) };
             UINavigationBar.Appearance.SetTitleTextAttributes(textAttrs);
-            UISegmentedControl.Appearance.SetTitleTextAttributes(textAttrs, UIControlState.Normal);
+
 //            
 //            SearchFilterBar.ButtonBackground = Images.BarButton.CreateResizableImage(new UIEdgeInsets(0, 6, 0, 6));
 //            SearchFilterBar.FilterImage = Images.Filter;
