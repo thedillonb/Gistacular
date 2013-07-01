@@ -20,14 +20,17 @@ namespace Gistacular.Controllers
 		/// <returns>The menu button.</returns>
 		protected override UIBarButtonItem CreateMenuButton()
 		{
-			return new UIBarButtonItem(Images.ThreeLines, UIBarButtonItemStyle.Plain, (s, e) => Show());
+            var button = new UIButton(UIButtonType.Custom);
+            button.Frame = new System.Drawing.RectangleF(0, 0, 40f, 40f);
+            button.SetImage(Images.ThreeLines, UIControlState.Normal);
+            button.TouchUpInside += (s, e) => Show();
+            return new UIBarButtonItem(button);
 		}
 
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
             SetMenuNavigationBackgroundImage(Images.MenuNavbar.CreateResizableImage(new UIEdgeInsets(0, 0, 0, 0)), UIBarMetrics.Default);
-            //SetTopNavigationBackgroundImage(Images.TopNavbar.CreateResizableImage(new UIEdgeInsets(0, 0, 0, 0)), UIBarMetrics.Default);
 			MenuView = new MenuController();
 		}
 
@@ -36,7 +39,7 @@ namespace Gistacular.Controllers
             base.ViewDidAppear(animated);
 
             //Select the default view
-            SelectView(new MyGistsController(Application.Account.Username));
+            SelectView(new MyGistsController());
         }
 	}
 }

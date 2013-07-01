@@ -28,8 +28,8 @@ namespace Gistacular.Controllers
 
             var gistMenuSection = new Section() { HeaderView = new MenuSectionView("Gists") };
             root.Add(gistMenuSection);
-            gistMenuSection.Add(new MenuElement("My Gists", () => { }, Images.Anonymous));
-            gistMenuSection.Add(new MenuElement("Starred", () => { }, Images.Anonymous));
+            gistMenuSection.Add(new MenuElement("My Gists", () => NavigationController.PushViewController(new MyGistsController(), true), Images.Anonymous));
+            gistMenuSection.Add(new MenuElement("Starred", () => NavigationController.PushViewController(new StarredGistsController(), true), Images.Anonymous));
 
 
             var labelSection = new Section() { HeaderView = new MenuSectionView("Tags") };
@@ -50,22 +50,19 @@ namespace Gistacular.Controllers
         {
             base.ViewDidLoad();
 
-            NavigationItem.LeftBarButtonItem = new UIBarButtonItem(Images.ThreeLines, UIBarButtonItemStyle.Bordered, (s, e) => {
+            NavigationItem.LeftBarButtonItem = new UIBarButtonItem(Images.ThreeLines, UIBarButtonItemStyle.Plain, (s, e) => {
                 //var n = new UINavigationController(new SettingsController());
                 //this.PresentModalViewController(n, true);
             });
 
 			//Add some nice looking colors and effects
             TableView.SeparatorColor = UIColor.FromRGB(14, 14, 14);
-            var view = new UIView(new RectangleF(0, 0, View.Bounds.Width, 10));
-            view.BackgroundColor = UIColor.Clear;
-            TableView.TableFooterView = view;
+            TableView.TableFooterView = new UIView(new RectangleF(0, 0, View.Bounds.Width, 0));
+            TableView.BackgroundColor = UIColor.FromRGB(34, 34, 34);
+
 
             //Prevent the scroll to top on this view
             this.TableView.ScrollsToTop = false;
-
-            TableView.BackgroundColor = UIColor.FromRGB(34, 34, 34);
-            TableView.BackgroundView = null;
         }
         
         public override void ViewWillAppear(bool animated)

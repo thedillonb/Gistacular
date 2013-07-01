@@ -5,7 +5,7 @@ namespace Gistacular
 {
 	public static class Images
 	{
-		public static UIImage ThreeLines = UIImage.FromFile("Images/three_lines.png");
+        public static UIImage ThreeLines = UIImage.FromFile("Images/list-icon.png");
 		public static UIImage Linen = UIImage.FromFile("Images/linen.png");
         public static UIImage Anonymous = UIImage.FromBundle("/Images/anonymous");
         public static UIImage GitHubLogo = UIImage.FromFile("Images/Logos/githublogo.png");

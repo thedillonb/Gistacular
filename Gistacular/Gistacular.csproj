@@ -129,6 +129,7 @@
     <Compile Include="Controllers\GitHubLoginController.cs" />
     <Compile Include="Controllers\GitHubLoginController.designer.cs" />
     <Compile Include="Views\MenuSectionView.cs" />
+    <Compile Include="Controllers\StarredGistsController.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
