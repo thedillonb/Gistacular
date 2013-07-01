@@ -1,0 +1,9 @@
+[submodule "GitHubSharp"]
+	path = GitHubSharp
+	url = https://github.com/thedillonb/GitHubSharp.git
+[submodule "MonoTouch.SlideoutNavigation"]
+	path = MonoTouch.SlideoutNavigation
+	url = https://github.com/thedillonb/MonoTouch.SlideoutNavigation
+[submodule "MonoTouch.Dialog"]
+	path = MonoTouch.Dialog
+	url = https://github.com/thedillonb/MonoTouch.Dialog.git
