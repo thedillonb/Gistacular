@@ -26,6 +26,8 @@ namespace Gistacular.Controllers
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
+            SetMenuNavigationBackgroundImage(Images.MenuNavbar.CreateResizableImage(new UIEdgeInsets(0, 0, 0, 0)), UIBarMetrics.Default);
+            //SetTopNavigationBackgroundImage(Images.TopNavbar.CreateResizableImage(new UIEdgeInsets(0, 0, 0, 0)), UIBarMetrics.Default);
 			MenuView = new MenuController();
 		}
 

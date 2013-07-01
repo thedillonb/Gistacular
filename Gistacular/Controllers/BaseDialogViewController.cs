@@ -84,8 +84,25 @@ namespace Gistacular.Controllers
             if (Title != null && Root != null)
                 Root.Caption = Title;
 
-            TableView.BackgroundColor = UIColor.Clear;
+            TableView.BackgroundColor = UIColor.FromRGB(227, 227, 227);
+            TableView.SeparatorStyle = UITableViewCellSeparatorStyle.SingleLine;
+            TableView.SeparatorColor = UIColor.FromRGB(199, 199, 199);
             TableView.BackgroundView = null;
+
+            if (Style != UITableViewStyle.Grouped)
+            {
+                var view = new UIView(new RectangleF(0, 0, View.Bounds.Width, 1));
+                var shadowBackgroundView = new UIView(new RectangleF(0, 0, View.Bounds.Width, 1));
+                shadowBackgroundView.Layer.ShadowOpacity = 0.4f; 
+                shadowBackgroundView.Layer.ShadowColor = UIColor.Black.CGColor;
+                shadowBackgroundView.Layer.ShadowOffset = new SizeF(0, -1.0f);
+                var path = UIBezierPath.FromRoundedRect(shadowBackgroundView.Bounds, 0.0f).CGPath;
+                shadowBackgroundView.Layer.ShadowPath = path;
+                shadowBackgroundView.Layer.ShouldRasterize = true;
+                view.AddSubview(shadowBackgroundView);
+                TableView.TableFooterView = view;
+            }
+
             base.ViewDidLoad();
         }
 

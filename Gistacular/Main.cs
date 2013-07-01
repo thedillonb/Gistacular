@@ -55,8 +55,8 @@ namespace Gistacular
         /// </summary>
         private void SetTheme()
         {
-//            //Set the status bar
-//            UIApplication.SharedApplication.SetStatusBarStyle(UIStatusBarStyle.BlackOpaque, false);
+            //Set the status bar
+            UIApplication.SharedApplication.SetStatusBarStyle(UIStatusBarStyle.BlackOpaque, false);
 //            
 //            //Set the theming
 //            UINavigationBar.Appearance.SetBackgroundImage(Images.Titlebar.CreateResizableImage(new UIEdgeInsets(0, 0, 1, 0)), UIBarMetrics.Default);
@@ -76,9 +76,9 @@ namespace Gistacular
 //            //UIBarButtonItem.Appearance.TintColor = UIColor.White;
 //            UISearchBar.Appearance.BackgroundImage = Images.Searchbar;
 //            
-//            var textAttrs = new UITextAttributes { TextColor = UIColor.White, TextShadowColor = UIColor.DarkGray, TextShadowOffset = new UIOffset(0, -1) };
-//            UINavigationBar.Appearance.SetTitleTextAttributes(textAttrs);
-//            UISegmentedControl.Appearance.SetTitleTextAttributes(textAttrs, UIControlState.Normal);
+            var textAttrs = new UITextAttributes { TextColor = UIColor.FromRGB(133, 133, 133), TextShadowColor = UIColor.White, TextShadowOffset = new UIOffset(0, 1) };
+            UINavigationBar.Appearance.SetTitleTextAttributes(textAttrs);
+            UISegmentedControl.Appearance.SetTitleTextAttributes(textAttrs, UIControlState.Normal);
 //            
 //            SearchFilterBar.ButtonBackground = Images.BarButton.CreateResizableImage(new UIEdgeInsets(0, 6, 0, 6));
 //            SearchFilterBar.FilterImage = Images.Filter;
@@ -109,7 +109,7 @@ namespace Gistacular
 //            UIBarButtonItem.Appearance.SetBackgroundImage(Images.Controls.Button, UIControlState.Normal, UIBarMetrics.Default);
 //            UIBarButtonItem.AppearanceWhenContainedIn(typeof(UIPopoverController)).SetBackgroundImage(null, UIControlState.Normal, UIBarMetrics.Default);
 //
-            UINavigationBar.Appearance.SetBackgroundImage(Images.MenuNavbar.CreateResizableImage(new UIEdgeInsets(0, 0, 0, 0)), UIBarMetrics.Default);
+            UINavigationBar.Appearance.SetBackgroundImage(Images.TopNavbar.CreateResizableImage(new UIEdgeInsets(0, 0, 0, 0)), UIBarMetrics.Default);
             UINavigationBar.AppearanceWhenContainedIn(typeof(UIPopoverController)).SetBackgroundImage (null, UIBarMetrics.Default);
         }
 

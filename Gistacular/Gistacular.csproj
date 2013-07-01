@@ -159,6 +159,14 @@
     <BundleResource Include="Images\menu_section_bg%402x.png" />
     <BundleResource Include="Images\menu_navbar.png" />
     <BundleResource Include="Images\menu_navbar%402x.png" />
+    <BundleResource Include="Images\top_navbar.png" />
+    <BundleResource Include="Images\top_navbar%402x.png" />
+    <BundleResource Include="Images\search_bg.png" />
+    <BundleResource Include="Images\search_bg%402x.png" />
+    <BundleResource Include="Images\list-icon.png" />
+    <BundleResource Include="Images\list-icon%402x.png" />
+    <BundleResource Include="Images\nav-bar-list-button.png" />
+    <BundleResource Include="Images\nav-bar-list-button%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Controllers\GitHubLoginController.xib" />

@@ -12,6 +12,7 @@ namespace Gistacular
 
         public static UIImage MenuSectionBackground = UIImage.FromBundle("/Images/menu_section_bg");
         public static UIImage MenuNavbar = UIImage.FromBundle("/Images/menu_navbar");
+        public static UIImage TopNavbar = UIImage.FromBundle("/Images/top_navbar");
 	}
 }
 
