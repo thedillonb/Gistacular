@@ -167,7 +167,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Images\three_lines.png" />
     <BundleResource Include="Images\linen.png" />
     <BundleResource Include="Images\anonymous.png" />
     <BundleResource Include="Images\anonymous%402x.png" />
@@ -176,14 +175,16 @@
     <BundleResource Include="Images\menu_section_bg%402x.png" />
     <BundleResource Include="Images\menu_navbar.png" />
     <BundleResource Include="Images\menu_navbar%402x.png" />
-    <BundleResource Include="Images\top_navbar.png" />
-    <BundleResource Include="Images\top_navbar%402x.png" />
     <BundleResource Include="Images\search_bg.png" />
     <BundleResource Include="Images\search_bg%402x.png" />
-    <BundleResource Include="Images\list-icon.png" />
-    <BundleResource Include="Images\list-icon%402x.png" />
     <BundleResource Include="Images\nav-bar-list-button.png" />
     <BundleResource Include="Images\nav-bar-list-button%402x.png" />
+    <BundleResource Include="Images\arrow.png" />
+    <BundleResource Include="Images\arrow%402x.png" />
+    <BundleResource Include="Images\top_navbar.png" />
+    <BundleResource Include="Images\top_navbar%402x.png" />
+    <BundleResource Include="Images\three_lines.png" />
+    <BundleResource Include="Images\three_lines%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Controllers\GitHubLoginController.xib" />

@@ -74,9 +74,8 @@ namespace Gistacular
 //            
 //            UIToolbar.Appearance.SetBackgroundImage(Images.Bottombar.CreateResizableImage(new UIEdgeInsets(0, 0, 0, 0)), UIToolbarPosition.Bottom, UIBarMetrics.Default);
 //            //UIBarButtonItem.Appearance.TintColor = UIColor.White;
-//            UISearchBar.Appearance.BackgroundImage = Images.Searchbar;
 //            
-            var textAttrs = new UITextAttributes { TextColor = UIColor.FromRGB(133, 133, 133), TextShadowColor = UIColor.White, TextShadowOffset = new UIOffset(0, 1) };
+            var textAttrs = new UITextAttributes { TextColor = UIColor.White, TextShadowColor = UIColor.FromRGB(40, 40, 40), TextShadowOffset = new UIOffset(0, 1) };
             UINavigationBar.Appearance.SetTitleTextAttributes(textAttrs);
             UISegmentedControl.Appearance.SetTitleTextAttributes(textAttrs, UIControlState.Normal);
 //            
@@ -109,6 +108,9 @@ namespace Gistacular
 //            UIBarButtonItem.Appearance.SetBackgroundImage(Images.Controls.Button, UIControlState.Normal, UIBarMetrics.Default);
 //            UIBarButtonItem.AppearanceWhenContainedIn(typeof(UIPopoverController)).SetBackgroundImage(null, UIControlState.Normal, UIBarMetrics.Default);
 //
+
+            UISearchBar.Appearance.BackgroundImage = Images.Searchbar.CreateResizableImage(new UIEdgeInsets(0, 1f, 0, 1f));
+
             UINavigationBar.Appearance.SetBackgroundImage(Images.TopNavbar.CreateResizableImage(new UIEdgeInsets(0, 0, 0, 0)), UIBarMetrics.Default);
             UINavigationBar.AppearanceWhenContainedIn(typeof(UIPopoverController)).SetBackgroundImage (null, UIBarMetrics.Default);
         }

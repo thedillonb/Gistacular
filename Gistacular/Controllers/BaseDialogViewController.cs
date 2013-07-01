@@ -115,6 +115,20 @@ namespace Gistacular.Controllers
                 StatusLabel.BackgroundColor = UIColor.Clear;
                 LastUpdateLabel.BackgroundColor = UIColor.Clear;
             }
+
+            public override void CreateViews()
+            {
+                base.CreateViews();
+                ArrowView.Image = Images.Arrow;
+                LastUpdateLabel.TextColor = UIColor.FromRGB(133, 133, 133);
+                StatusLabel.TextColor = UIColor.FromRGB(133, 133, 133);
+            }
+
+            public override void LayoutSubviews()
+            {
+                base.LayoutSubviews();
+                ArrowView.Frame = new RectangleF (20, Bounds.Height - 55, 20, 45);
+            }
         }
     }
 }
