@@ -7,6 +7,7 @@ using Gistacular.Elements;
 using Gistacular.Views;
 using System.Drawing;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Gistacular.Controllers
 {
@@ -29,6 +30,27 @@ namespace Gistacular.Controllers
             _tabButtons.SegmentChanged = SegmentedChanged;
         }
 
+        /// <summary>
+        /// Used when we retrieve data so we can add more comments and order them so we don't have to order during rendering
+        /// </summary>
+        /// <param name="comments">Comments.</param>
+        private void AddToCommentList(List<GistCommentModel> comments)
+        {
+            //Never should happen, but invalidate it!
+            if (comments == null)
+            {
+                _comments = null;
+                return;
+            }
+
+            if (_comments == null)
+                _comments = comments;
+            else
+                _comments.AddRange(comments);
+
+            _comments = _comments.OrderByDescending(x => x.CreatedAt).ToList();
+        }
+
         private void SegmentedChanged(int index)
         {
             if (index == 0)
@@ -40,7 +62,7 @@ namespace Gistacular.Controllers
                 if (_comments == null)
                 {
                     this.DoWork(() => {
-                        _comments = Application.Client.API.GetGistComments(Id).Data;
+                        AddToCommentList(Application.Client.API.GetGistComments(Id).Data);
                         InvokeOnMainThread(() => {
                             if (_tabButtons.Selected != 1) 
                                 return;
@@ -79,7 +101,7 @@ namespace Gistacular.Controllers
         private void LoadFiles(Section section)
         {
             section.Clear();
-            foreach (var file in Model.Files.Keys)
+            foreach (var file in Model.Files.Keys.OrderBy(x => x))
             {
                 var sse = new SubcaptionElement(file, Model.Files[file].Size + " bytes") { 
                     Accessory = MonoTouch.UIKit.UITableViewCellAccessory.DisclosureIndicator, 
@@ -120,7 +142,7 @@ namespace Gistacular.Controllers
 
             //If we're currently looking at the comments then update it. If not, just invalidate it
             if (selected == 1)
-                _comments = Application.Client.API.GetGistComments(Id).Data;
+                AddToCommentList(Application.Client.API.GetGistComments(Id).Data);
             else
                 _comments = null;
 
