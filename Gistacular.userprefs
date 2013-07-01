@@ -1,17 +1,23 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.IPhone.6.0" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Gistacular/Controllers/SlideoutNavigationController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Gistacular/Controllers/MenuController.cs">
     <Files>
-      <File FileName="Gistacular/Controllers/SlideoutNavigationController.cs" Line="29" Column="1" />
+      <File FileName="Gistacular/Controllers/SlideoutNavigationController.cs" Line="1" Column="1" />
+      <File FileName="Gistacular/Controllers/MenuController.cs" Line="66" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
-        <State expanded="True" selected="True">
-          <Node name="Libraries" expanded="True" />
-          <Node name="Gistacular" expanded="True">
+        <State expanded="True">
+          <Node name="Libraries" expanded="True">
+            <Node name="MonoTouch.Dialog" expanded="True" />
+            <Node name="MonoTouch.SlideoutNavigation" expanded="True" />
+          </Node>
+          <Node name="Gistacular" expanded="True" selected="True">
             <Node name="Controllers" expanded="True" />
+            <Node name="Data" expanded="True" />
             <Node name="Elements" expanded="True" />
             <Node name="Images" expanded="True" />
+            <Node name="Views" expanded="True" />
           </Node>
         </State>
       </Pad>
