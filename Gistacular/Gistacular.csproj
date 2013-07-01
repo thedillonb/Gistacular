@@ -125,6 +125,10 @@
     <Compile Include="Controllers\ListController.cs" />
     <Compile Include="Elements\PaginateElement.cs" />
     <Compile Include="Controllers\MyGistsController.cs" />
+    <Compile Include="Controllers\SettingsController.cs" />
+    <Compile Include="Controllers\GitHubLoginController.cs" />
+    <Compile Include="Controllers\GitHubLoginController.designer.cs" />
+    <Compile Include="Views\MenuSectionView.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -150,5 +154,13 @@
     <BundleResource Include="Images\linen.png" />
     <BundleResource Include="Images\anonymous.png" />
     <BundleResource Include="Images\anonymous%402x.png" />
+    <BundleResource Include="Images\githublogo.png" />
+    <BundleResource Include="Images\menu_section_bg.png" />
+    <BundleResource Include="Images\menu_section_bg%402x.png" />
+    <BundleResource Include="Images\menu_navbar.png" />
+    <BundleResource Include="Images\menu_navbar%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <InterfaceDefinition Include="Controllers\GitHubLoginController.xib" />
   </ItemGroup>
 </Project>

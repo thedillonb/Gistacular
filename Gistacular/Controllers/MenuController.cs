@@ -26,14 +26,19 @@ namespace Gistacular.Controllers
             root.Add(addGistSection);
             addGistSection.Add(new MenuElement("New Gist", () => { }, Images.Anonymous));
 
-            var gistMenuSection = new Section();
+            var gistMenuSection = new Section() { HeaderView = new MenuSectionView("Gists") };
             root.Add(gistMenuSection);
-            addGistSection.Add(new MenuElement("My Gists", () => { }, Images.Anonymous));
-            addGistSection.Add(new MenuElement("Starred", () => { }, Images.Anonymous));
+            gistMenuSection.Add(new MenuElement("My Gists", () => { }, Images.Anonymous));
+            gistMenuSection.Add(new MenuElement("Starred", () => { }, Images.Anonymous));
 
 
-            var labelSection = new Section();
+            var labelSection = new Section() { HeaderView = new MenuSectionView("Tags") };
             root.Add(labelSection);
+            labelSection.Add(new MenuElement("Add New Tag", () => { }, Images.Anonymous));
+
+            var moreSection = new Section() { HeaderView = new MenuSectionView("More") };
+            root.Add(moreSection);
+            moreSection.Add(new MenuElement("Settings", () => { }, Images.Anonymous));
 		}
         
         protected virtual void NavPush(UIViewController controller)
@@ -51,22 +56,22 @@ namespace Gistacular.Controllers
             });
 
 			//Add some nice looking colors and effects
-            TableView.BackgroundColor = UIColor.Clear;
-            UIImage background = Images.Linen;
-            View.BackgroundColor = UIColor.FromPatternImage(background);            
-            TableView.SeparatorColor = UIColor.FromRGBA(128, 128, 128, 128);
+            TableView.SeparatorColor = UIColor.FromRGB(14, 14, 14);
             var view = new UIView(new RectangleF(0, 0, View.Bounds.Width, 10));
             view.BackgroundColor = UIColor.Clear;
             TableView.TableFooterView = view;
 
             //Prevent the scroll to top on this view
             this.TableView.ScrollsToTop = false;
+
+            TableView.BackgroundColor = UIColor.FromRGB(34, 34, 34);
+            TableView.BackgroundView = null;
         }
         
         public override void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);
-			var root = new RootElement(string.Empty); //TODO: This
+			var root = new RootElement(Application.Account.Username);
             Title = root.Caption;
 			OnCreateMenu(root);
 			Root = root;
@@ -75,27 +80,25 @@ namespace Gistacular.Controllers
 		private class MenuElement : StyledElement
 		{
 			public MenuElement(string title, NSAction tapped, UIImage image)
-				: base(title, tapped, image)
+				: base(title, tapped)
 			{
 				BackgroundColor = UIColor.Clear;
-				TextColor = UIColor.White;
+				TextColor = UIColor.FromRGB(213, 213, 213);
 				DetailColor = UIColor.White;
 			}
 			
 			public override UITableViewCell GetCell(UITableView tv)
 			{
 				var cell = base.GetCell(tv);
-				cell.SelectedBackgroundView = new UIView { BackgroundColor = UIColor.FromRGBA(41, 41, 41, 200) };
+                cell.TextLabel.ShadowColor = UIColor.Black;
+                cell.TextLabel.ShadowOffset = new SizeF(0, -1); 
+                cell.SelectedBackgroundView = new UIView { BackgroundColor = UIColor.FromRGB(25, 25, 25) };
 				
 				var f = cell.Subviews.Count(x => x.Tag == 1111);
 				if (f == 0)
 				{
-					var v2 = new UIView(new RectangleF(0, cell.Frame.Height - 3, cell.Frame.Width, 1))
-					{BackgroundColor = UIColor.FromRGBA(41, 41, 41, 64), Tag = 1111};
-					cell.AddSubview(v2);
-					
-					var v = new UIView(new RectangleF(0, cell.Frame.Height - 2, cell.Frame.Width, 1))
-					{ BackgroundColor = UIColor.FromRGBA(41, 41, 41, 200), Tag = 1111};
+					var v = new UIView(new RectangleF(0, 0, cell.Frame.Width, 1))
+					{ BackgroundColor = UIColor.FromRGB(44, 44, 44), Tag = 1111};
 					cell.AddSubview(v);
 				}
 				
