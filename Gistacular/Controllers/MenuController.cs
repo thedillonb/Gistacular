@@ -24,21 +24,21 @@ namespace Gistacular.Controllers
 		{
             var addGistSection = new Section();
             root.Add(addGistSection);
-            addGistSection.Add(new MenuElement("New Gist", () => { }, Images.Anonymous));
+            addGistSection.Add(new MenuElement("New Gist", () => NavigationController.PushViewController(new CreateGistController(), true), null));
 
             var gistMenuSection = new Section() { HeaderView = new MenuSectionView("Gists") };
             root.Add(gistMenuSection);
-            gistMenuSection.Add(new MenuElement("My Gists", () => NavigationController.PushViewController(new MyGistsController(), true), Images.Anonymous));
-            gistMenuSection.Add(new MenuElement("Starred", () => NavigationController.PushViewController(new StarredGistsController(), true), Images.Anonymous));
+            gistMenuSection.Add(new MenuElement("My Gists", () => NavigationController.PushViewController(new MyGistsController(), true), null));
+            gistMenuSection.Add(new MenuElement("Starred", () => NavigationController.PushViewController(new StarredGistsController(), true), null));
 
 
             var labelSection = new Section() { HeaderView = new MenuSectionView("Tags") };
             root.Add(labelSection);
-            labelSection.Add(new MenuElement("Add New Tag", () => { }, Images.Anonymous));
+            labelSection.Add(new MenuElement("Add New Tag", () => { }, null));
 
             var moreSection = new Section() { HeaderView = new MenuSectionView("More") };
             root.Add(moreSection);
-            moreSection.Add(new MenuElement("Settings", () => { }, Images.Anonymous));
+            moreSection.Add(new MenuElement("Settings", () => { }, null));
 		}
         
         protected virtual void NavPush(UIViewController controller)

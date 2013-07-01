@@ -1,6 +1,7 @@
 using MonoTouch.Dialog;
 using MonoTouch.UIKit;
 using System.Drawing;
+using Gistacular.Views;
 
 namespace Gistacular.Controllers
 {
@@ -59,7 +60,7 @@ namespace Gistacular.Controllers
 		public BaseDialogViewController(bool push, string backButtonText)
 			: base(new RootElement(""), push)
 		{
-			NavigationItem.BackBarButtonItem = new UIBarButtonItem(backButtonText, UIBarButtonItemStyle.Plain, null);
+            NavigationItem.LeftBarButtonItem = new UIBarButtonItem(NavigationButton.Create(Images.BackButton, () => NavigationController.PopViewControllerAnimated(true)));
 			SearchPlaceholder = "Search";
 			Autorotate = true;
 		}

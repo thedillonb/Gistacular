@@ -1,5 +1,6 @@
 using System;
 using MonoTouch.UIKit;
+using Gistacular.Views;
 
 namespace Gistacular.Controllers
 {
@@ -20,14 +21,7 @@ namespace Gistacular.Controllers
 		/// <returns>The menu button.</returns>
 		protected override UIBarButtonItem CreateMenuButton()
 		{
-            var button = new UIButton(UIButtonType.Custom);
-            button.Frame = new System.Drawing.RectangleF(0, 0, 40f, 40f);
-            button.SetImage(Images.ThreeLines, UIControlState.Normal);
-            button.ImageView.Layer.ShadowColor = UIColor.Black.CGColor;
-            button.ImageView.Layer.ShadowOpacity = 0.4f;
-            button.ImageView.Layer.ShadowOffset = new System.Drawing.SizeF(0, 1.0f);
-            button.TouchUpInside += (s, e) => Show();
-            return new UIBarButtonItem(button);
+            return new UIBarButtonItem(NavigationButton.Create(Images.ThreeLines, () => Show()));
 		}
 
 		public override void ViewDidLoad()

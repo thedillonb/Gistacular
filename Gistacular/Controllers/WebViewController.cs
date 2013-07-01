@@ -1,5 +1,6 @@
 using System;
 using MonoTouch.UIKit;
+using Gistacular.Views;
 
 namespace Gistacular.Controllers
 {
@@ -36,6 +37,8 @@ namespace Gistacular.Controllers
             Web.LoadError += OnLoadError;
 
             _navigationToolbar = navigationToolbar;
+
+            NavigationItem.LeftBarButtonItem = new UIBarButtonItem(NavigationButton.Create(Images.BackButton, () => NavigationController.PopViewControllerAnimated(true)));
         }
 
         protected virtual void OnLoadError (object sender, UIWebErrorArgs e)

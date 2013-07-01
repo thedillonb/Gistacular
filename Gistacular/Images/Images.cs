@@ -16,6 +16,8 @@ namespace Gistacular
         public static UIImage Searchbar = UIImage.FromBundle("/Images/search_bg");
 
         public static UIImage Arrow = UIImage.FromBundle("/Images/arrow");
+        public static UIImage BackButton = UIImage.FromBundle("/Images/back-button");
+        public static UIImage AddButton = UIImage.FromBundle("/Images/add-button");
 	}
 }
 

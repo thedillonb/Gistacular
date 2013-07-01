@@ -63,9 +63,6 @@ namespace Gistacular.Controllers
                 }
 
                 InvokeOnMainThread(delegate { 
-                    if (TableView.TableFooterView != null)
-                        TableView.TableFooterView.Hidden = Root.Count == 0;
-
                     ReloadComplete(); 
                 });
                 Loaded = true;
@@ -126,6 +123,7 @@ namespace Gistacular.Controllers
                 {
                     _searchController = new DialogViewController(UITableViewStyle.Plain, null);
                     _searchController.LoadView();
+                    _searchController.TableView.TableFooterView = new UIView(new RectangleF(0, 0, 0, 0));
                 }
                 
                 searchBar.ShowsCancelButton = true;
@@ -136,13 +134,11 @@ namespace Gistacular.Controllers
                 
                 if (_searchController.Root != null && _searchController.Root.Count > 0 && _searchController.Root[0].Count > 0)
                 {
-                    _searchController.TableView.TableFooterView.Hidden = false;
                     _searchController.View.BackgroundColor = UIColor.White;
                     _searchController.TableView.ScrollEnabled = true;
                 }
                 else
                 {
-                    _searchController.TableView.TableFooterView.Hidden = true;
                     _searchController.View.BackgroundColor = NoItemColor;
                     _searchController.TableView.ScrollEnabled = false;
                 }
@@ -176,7 +172,6 @@ namespace Gistacular.Controllers
                     if (_searchController.Root != null)
                         _searchController.Root.Clear();
                     _searchController.View.BackgroundColor = NoItemColor;
-                    _searchController.TableView.TableFooterView.Hidden = true;
                     _searchController.TableView.ScrollEnabled = false;
                     return;
                 }
@@ -197,7 +192,6 @@ namespace Gistacular.Controllers
                 }
                 
                 _searchController.View.BackgroundColor = UIColor.White;
-                _searchController.TableView.TableFooterView.Hidden = sec.Count == 0;
                 var root = new RootElement("") { sec };
                 root.UnevenRows = true;
                 _searchController.Root = root;

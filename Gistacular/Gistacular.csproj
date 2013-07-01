@@ -107,6 +107,7 @@
     <Folder Include="Data\" />
     <Folder Include="Utilities\" />
     <Folder Include="Views\" />
+    <Folder Include="SourceBrowser\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -146,6 +147,10 @@
     <Compile Include="Controllers\GitHubLoginController.designer.cs" />
     <Compile Include="Views\MenuSectionView.cs" />
     <Compile Include="Controllers\StarredGistsController.cs" />
+    <Compile Include="Controllers\CreateGistController.cs" />
+    <Compile Include="Views\NavigationButton.cs" />
+    <Compile Include="Controllers\GistInfoController.cs" />
+    <Compile Include="Elements\SubcaptionElement.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -185,8 +190,46 @@
     <BundleResource Include="Images\top_navbar%402x.png" />
     <BundleResource Include="Images\three_lines.png" />
     <BundleResource Include="Images\three_lines%402x.png" />
+    <BundleResource Include="Images\back-button.png" />
+    <BundleResource Include="Images\back-button%402x.png" />
+    <BundleResource Include="Images\add-button.png" />
+    <BundleResource Include="Images\add-button%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Controllers\GitHubLoginController.xib" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="SourceBrowser\index.html" />
+    <Content Include="SourceBrowser\lang-apollo.js" />
+    <Content Include="SourceBrowser\lang-basic.js" />
+    <Content Include="SourceBrowser\lang-clj.js" />
+    <Content Include="SourceBrowser\lang-css.js" />
+    <Content Include="SourceBrowser\lang-dart.js" />
+    <Content Include="SourceBrowser\lang-erlang.js" />
+    <Content Include="SourceBrowser\lang-go.js" />
+    <Content Include="SourceBrowser\lang-hs.js" />
+    <Content Include="SourceBrowser\lang-lisp.js" />
+    <Content Include="SourceBrowser\lang-llvm.js" />
+    <Content Include="SourceBrowser\lang-lua.js" />
+    <Content Include="SourceBrowser\lang-matlab.js" />
+    <Content Include="SourceBrowser\lang-ml.js" />
+    <Content Include="SourceBrowser\lang-mumps.js" />
+    <Content Include="SourceBrowser\lang-n.js" />
+    <Content Include="SourceBrowser\lang-pascal.js" />
+    <Content Include="SourceBrowser\lang-proto.js" />
+    <Content Include="SourceBrowser\lang-r.js" />
+    <Content Include="SourceBrowser\lang-rd.js" />
+    <Content Include="SourceBrowser\lang-scala.js" />
+    <Content Include="SourceBrowser\lang-sql.js" />
+    <Content Include="SourceBrowser\lang-tcl.js" />
+    <Content Include="SourceBrowser\lang-tex.js" />
+    <Content Include="SourceBrowser\lang-vb.js" />
+    <Content Include="SourceBrowser\lang-vhdl.js" />
+    <Content Include="SourceBrowser\lang-wiki.js" />
+    <Content Include="SourceBrowser\lang-xq.js" />
+    <Content Include="SourceBrowser\lang-yaml.js" />
+    <Content Include="SourceBrowser\prettify.css" />
+    <Content Include="SourceBrowser\prettify.js" />
+    <Content Include="SourceBrowser\run_prettify.js" />
   </ItemGroup>
 </Project>
