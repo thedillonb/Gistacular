@@ -24,7 +24,8 @@ namespace Gistacular.Controllers
                 catch (Exception e)
                 {
                     if (error != null)
-                        controller.InvokeOnMainThread(() => error(e));
+                        error(e);
+                    Utilities.ShowAlert("Error", e.Message);
                 }
                 finally 
                 {

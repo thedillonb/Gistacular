@@ -202,6 +202,10 @@
     <BundleResource Include="Images\tabs_highlighted%402x.png" />
     <BundleResource Include="Images\view.png" />
     <BundleResource Include="Images\view%402x.png" />
+    <BundleResource Include="Images\edit.png" />
+    <BundleResource Include="Images\edit%402x.png" />
+    <BundleResource Include="Images\fork%402x.png" />
+    <BundleResource Include="Images\fork.png" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Controllers\GitHubLoginController.xib" />

@@ -19,15 +19,49 @@ namespace Gistacular.Controllers
 
         public string Id { get; private set; }
 
-        public GistInfoController(string id)
+        public GistInfoController(string id, bool owned = false)
             : base(true, true)
         {
             Id = id;
             Style = MonoTouch.UIKit.UITableViewStyle.Plain;
             Title = "Gist";
 
-            _tabButtons = new TabButtonView(new RectangleF(0, 0, this.TableView.Bounds.Width, 42), "Files", "Comments");
+            _tabButtons = new TabButtonView(new RectangleF(0, 0, this.TableView.Bounds.Width, 42), "Files", "Comments", "Forks");
             _tabButtons.SegmentChanged = SegmentedChanged;
+
+            if (owned)
+            {
+                NavigationItem.RightBarButtonItem = new UIBarButtonItem(NavigationButton.Create(Images.EditButton, () => {
+
+                }));
+            }
+            else
+            {
+                NavigationItem.RightBarButtonItem = new UIBarButtonItem(NavigationButton.Create(Images.ForkButton, () => {
+                    NavigationItem.RightBarButtonItem.Enabled = false;
+
+                    this.DoWork(() => {
+                        var forkedGist = Application.Client.API.ForkGist(id);
+                        InvokeOnMainThread(delegate {
+                            NavigationController.PushViewController(new GistInfoController(forkedGist.Data.Id, true), true);
+                        });
+                    }, null, () => {
+                        NavigationItem.RightBarButtonItem.Enabled = true;
+                    });
+                }));
+            }
+
+            //The bottom bar
+//            ToolbarItems = new []
+//            {
+//                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+//                new UIBarButtonItem(UIBarButtonSystemItem.Add),
+//                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+//                new UIBarButtonItem(UIBarButtonSystemItem.Add),
+//                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+//                new UIBarButtonItem(UIBarButtonSystemItem.Add),
+//                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
+//            };
         }
 
         /// <summary>
@@ -147,6 +181,20 @@ namespace Gistacular.Controllers
                 _comments = null;
 
             return Application.Client.API.GetGist(Id).Data;
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            if (ToolbarItems != null)
+                NavigationController.SetToolbarHidden(IsSearching, animated);
+            base.ViewWillAppear(animated);
+        }
+
+        public override void ViewWillDisappear(bool animated)
+        {
+            base.ViewWillDisappear(animated);
+            if (ToolbarItems != null)
+                NavigationController.SetToolbarHidden(true, animated);
         }
     }
 }

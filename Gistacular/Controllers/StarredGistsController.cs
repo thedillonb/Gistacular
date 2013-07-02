@@ -1,6 +1,7 @@
 using System;
 using GitHubSharp.Models;
 using System.Collections.Generic;
+using MonoTouch.Dialog;
 
 namespace Gistacular.Controllers
 {

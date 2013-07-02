@@ -1,6 +1,7 @@
 using System;
 using GitHubSharp.Models;
 using System.Collections.Generic;
+using MonoTouch.Dialog;
 
 namespace Gistacular.Controllers
 {
@@ -11,6 +12,13 @@ namespace Gistacular.Controllers
         {
             Title = "My Gists";
             UnevenRows = true;
+        }
+
+        protected override Element CreateElement(GistModel x)
+        {
+            var element = CreateGistElement(x);
+            element.Tapped += () => NavigationController.PushViewController(new GistInfoController(x.Id, true) { Model = x }, true);
+            return element;
         }
 
         protected override List<GistModel> GetData(bool force, int currentPage, out int nextPage)

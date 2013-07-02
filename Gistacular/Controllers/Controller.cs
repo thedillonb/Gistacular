@@ -71,9 +71,7 @@ namespace Gistacular.Controllers
 
             if (!force)
             {
-                this.DoWork(() => UpdateAndRefresh(false), ex => {
-                    CurrentError = ErrorView.Show(View.Superview, ex.Message);
-                });
+                this.DoWork(() => UpdateAndRefresh(false));
             }
             else
             {

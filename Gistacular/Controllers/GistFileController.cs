@@ -76,7 +76,7 @@ namespace Gistacular.Controllers
                 this.DoWork(() => {
                     Request();
                     _loaded = true;
-                }, ex => ErrorView.Show(this.View, ex.Message));
+                });
             }
         }
 

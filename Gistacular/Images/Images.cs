@@ -23,6 +23,8 @@ namespace Gistacular
         public static UIImage TabsVertical = UIImage.FromBundle("/Images/tabs_vertical");
 
         public static UIImage ViewButton = UIImage.FromBundle("/Images/view");
+        public static UIImage EditButton = UIImage.FromBundle("/Images/edit");
+        public static UIImage ForkButton = UIImage.FromBundle("/Images/fork");
 	}
 }
 
