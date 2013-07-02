@@ -13,6 +13,7 @@ namespace Gistacular.Controllers
 		{
 			//Setting the height to a large amount means that it will activate the slide pretty much whereever your finger is on the screen.
 			SlideHeight = 9999f;
+            BackgroundColor = UIColor.FromRGB(227, 227, 227);
 		}
 
 		/// <summary>
@@ -30,13 +31,6 @@ namespace Gistacular.Controllers
             SetMenuNavigationBackgroundImage(Images.MenuNavbar.CreateResizableImage(new UIEdgeInsets(0, 0, 0, 0)), UIBarMetrics.Default);
 			MenuView = new MenuController();
 		}
-
-        public override void ViewWillAppear(bool animated)
-        {
-            base.ViewWillAppear(animated);
-
-
-        }
 	}
 }
 

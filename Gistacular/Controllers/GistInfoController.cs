@@ -32,7 +32,6 @@ namespace Gistacular.Controllers
             if (owned)
             {
                 NavigationItem.RightBarButtonItem = new UIBarButtonItem(NavigationButton.Create(Images.EditButton, () => {
-
                 }));
             }
             else
@@ -84,8 +83,24 @@ namespace Gistacular.Controllers
         {
             var composer = new Composer();
             composer.NewComment(this, () => {
-
-
+                composer.DoWork(() => {
+                    var text = String.Empty;
+                    InvokeOnMainThread(delegate { text = composer.Text;});
+                    var comment = Application.Client.API.CreateGistComment(Model.Id, text);
+                    if (_comments != null)
+                    {
+                        var temp = new List<GistCommentModel>();
+                        temp.Add(comment.Data);
+                        AddToCommentList(temp);
+                    }
+                    InvokeOnMainThread(delegate {
+                        if (_tabButtons.Selected == 1)
+                            OnRefresh();
+                        composer.CloseComposer();
+                    });
+                }, null, () => {
+                    composer.EnableSendButton = true;
+                });
             });
         }
 
@@ -279,7 +294,11 @@ namespace Gistacular.Controllers
 
             //If we're currently looking at the comments then update it. If not, just invalidate it
             if (selected == 1)
+            {
+                if (_comments != null)
+                    _comments.Clear();
                 AddToCommentList(Application.Client.API.GetGistComments(Id).Data);
+            }
             else
                 _comments = null;
 

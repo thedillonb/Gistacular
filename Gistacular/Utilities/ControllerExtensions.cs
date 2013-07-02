@@ -25,7 +25,9 @@ namespace Gistacular.Controllers
                 {
                     if (error != null)
                         error(e);
-                    Utilities.ShowAlert("Error", e.Message);
+                    controller.InvokeOnMainThread(delegate {
+                        Utilities.ShowAlert("Error", e.Message);
+                    });
                 }
                 finally 
                 {
