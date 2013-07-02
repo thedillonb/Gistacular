@@ -4,17 +4,31 @@ using MonoTouch.Foundation;
 using System.Drawing;
 using System.Linq;
 using Gistacular.Elements;
+using Gistacular.Views;
 
 namespace Gistacular.Controllers
 {
     public class MenuController : DialogViewController
     {
+        UILabel _title;
+
+
 		public MenuController()
             : base(UITableViewStyle.Plain, new RootElement("Gistacular"))
         {
             Autorotate = true;
 //            if (Application.Account != null && !string.IsNullOrEmpty(Application.Account.Username))
 //                Root.Caption = Application.Account.Username;
+
+            _title = new UILabel(new RectangleF(0, 40, 320, 40));
+            _title.TextAlignment = UITextAlignment.Left;
+            _title.BackgroundColor = UIColor.Clear;
+            _title.Font = UIFont.BoldSystemFontOfSize(20f);
+            _title.TextColor = UIColor.FromRGB(246, 246, 246);
+            _title.ShadowColor = UIColor.FromRGB(21, 21, 21);
+            _title.ShadowOffset = new SizeF(0, 1);
+
+            NavigationItem.TitleView = _title;
         }
 
 		/// <summary>
@@ -30,7 +44,7 @@ namespace Gistacular.Controllers
             root.Add(gistMenuSection);
             gistMenuSection.Add(new MenuElement("My Gists", () => NavigationController.PushViewController(new MyGistsController(), true), null));
             gistMenuSection.Add(new MenuElement("Starred", () => NavigationController.PushViewController(new StarredGistsController(), true), null));
-
+            gistMenuSection.Add(new MenuElement("Public", () => NavigationController.PushViewController(new PublicGistsController(), true), null));
 
             var labelSection = new Section() { HeaderView = new MenuSectionView("Tags") };
             root.Add(labelSection);
@@ -50,10 +64,7 @@ namespace Gistacular.Controllers
         {
             base.ViewDidLoad();
 
-            NavigationItem.LeftBarButtonItem = new UIBarButtonItem(Images.ThreeLines, UIBarButtonItemStyle.Plain, (s, e) => {
-                //var n = new UINavigationController(new SettingsController());
-                //this.PresentModalViewController(n, true);
-            });
+            NavigationItem.LeftBarButtonItem = new UIBarButtonItem(new ProfileView(new System.Uri(Application.Account.AvatarUrl)));
 
 			//Add some nice looking colors and effects
             TableView.SeparatorColor = UIColor.FromRGB(14, 14, 14);
@@ -68,6 +79,8 @@ namespace Gistacular.Controllers
         public override void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);
+            _title.Text = Application.Account.Username;
+
 			var root = new RootElement(Application.Account.Username);
             Title = root.Caption;
 			OnCreateMenu(root);
