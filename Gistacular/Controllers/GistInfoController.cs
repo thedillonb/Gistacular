@@ -89,7 +89,7 @@ namespace Gistacular.Controllers
         {
             if (index == 0)
             {
-                LoadFiles(_contentSection);
+                OnRefresh();
             }
             else if (index == 1)
             {
@@ -100,52 +100,111 @@ namespace Gistacular.Controllers
                         InvokeOnMainThread(() => {
                             if (_tabButtons.Selected != 1) 
                                 return;
-                            LoadComments(_contentSection);
+                            OnRefresh();
                         });
                     });
                 }
                 else
                 {
-                    LoadComments(_contentSection);
+                    OnRefresh();
                 }
+            }
+            else if (index == 2)
+            {
+                //Hack
+                if (Model.Forks == null)
+                {
+                    Model = null;
+                    Refresh(true);
+                }
+                else
+                    OnRefresh();
             }
         }
 
         private void LoadComments(Section section)
         {
             section.Clear();
+            if (_comments == null)
+                return;
+
             foreach (var comment in _comments)
             {
-                var thisComment = comment;
+                try
+                {
+                    var thisComment = comment;
+                    var sse = new NameTimeStringElement() { 
+                        Time = thisComment.CreatedAt, 
+                        String = thisComment.Body, 
+                        Lines = 4, 
+                        Image = Images.Anonymous,
+                    };
 
-                var sse = new NameTimeStringElement() { 
-                    Time = thisComment.CreatedAt, 
-                    String = thisComment.Body, 
-                    Lines = 4, 
-                    Image = Images.Anonymous,
-                };
+                    sse.Name = thisComment.User == null ? "Unknown" : thisComment.User.Login;
+                    sse.ImageUri = (thisComment.User == null) ? null : new Uri(thisComment.User.AvatarUrl);
+                    section.Add(sse);
+                }
+                catch (Exception e)
+                {
+                    Utilities.LogException("Unable to load comments!", e);
+                }
+            }
+        }
 
-                sse.Name = thisComment.User == null ? "Unknown" : thisComment.User.Login;
-                sse.ImageUri = (thisComment.User == null) ? null : new Uri(thisComment.User.AvatarUrl);
+        private void LoadForks(Section section)
+        {
+            section.Clear();
+            if (Model == null || Model.Forks == null)
+                return;
 
-                section.Add(sse);
+            foreach (var fork in Model.Forks)
+            {
+                try
+                {
+                    var sse = new SubcaptionElement(fork.User.Login, fork.CreatedAt.ToDaysAgo()) { 
+                        Accessory = MonoTouch.UIKit.UITableViewCellAccessory.DisclosureIndicator, 
+                        LineBreakMode = MonoTouch.UIKit.UILineBreakMode.TailTruncation,
+                        Lines = 1,
+                    };
+
+                    sse.Image = Images.Anonymous;
+                    sse.ImageUri = new Uri(fork.User.AvatarUrl);
+
+                    var id = fork.Url.Substring(fork.Url.LastIndexOf('/') + 1);
+                    sse.Tapped += () => NavigationController.PushViewController(new GistInfoController(id), true);
+                    section.Add(sse);
+                }
+                catch (Exception e)
+                {
+                    Utilities.LogException("Unable to load forks!", e);
+                }
             }
         }
 
         private void LoadFiles(Section section)
         {
             section.Clear();
+            if (Model == null || Model.Files == null)
+                return;
+
             foreach (var file in Model.Files.Keys.OrderBy(x => x))
             {
-                var sse = new SubcaptionElement(file, Model.Files[file].Size + " bytes") { 
-                    Accessory = MonoTouch.UIKit.UITableViewCellAccessory.DisclosureIndicator, 
-                    LineBreakMode = MonoTouch.UIKit.UILineBreakMode.TailTruncation,
-                    Lines = 1 
-                };
+                try
+                {
+                    var sse = new SubcaptionElement(file, Model.Files[file].Size + " bytes") { 
+                        Accessory = MonoTouch.UIKit.UITableViewCellAccessory.DisclosureIndicator, 
+                        LineBreakMode = MonoTouch.UIKit.UILineBreakMode.TailTruncation,
+                        Lines = 1 
+                    };
 
-                var fileSaved = file;
-                sse.Tapped += () => NavigationController.PushViewController(new GistFileController(Model.Files[fileSaved]), true);
-                section.Add(sse);
+                    var fileSaved = file;
+                    sse.Tapped += () => NavigationController.PushViewController(new GistFileController(Model.Files[fileSaved]), true);
+                    section.Add(sse);
+                }
+                catch (Exception e)
+                {
+                    Utilities.LogException("Unable to load files!", e);
+                }
             }
         }
 
@@ -155,17 +214,20 @@ namespace Gistacular.Controllers
             sec.Add(GistsController.CreateGistElement(Model));
 
             InvokeOnMainThread(delegate {
-
-                _contentSection = new Section() { HeaderView = _tabButtons };
-                if (_tabButtons.Selected == 0)
-                    LoadFiles(_contentSection);
-                else if (_tabButtons.Selected == 1)
-                    LoadComments(_contentSection);
-
                 var root = new RootElement(Title) { UnevenRows = true };
+                var contentSection = new Section() { HeaderView = _tabButtons };
                 root.Add(sec);
-                root.Add(_contentSection);
+                root.Add(contentSection);
+
+                if (_tabButtons.Selected == 0)
+                    LoadFiles(contentSection);
+                else if (_tabButtons.Selected == 1)
+                    LoadComments(contentSection);
+                else if (_tabButtons.Selected == 2)
+                    LoadForks(contentSection);
+
                 Root = root;
+                _contentSection = contentSection;
             });
         }
 

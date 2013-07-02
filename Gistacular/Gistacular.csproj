@@ -154,6 +154,13 @@
     <Compile Include="Elements\SubcaptionElement.cs" />
     <Compile Include="Views\TabButtonView.cs" />
     <Compile Include="Controllers\CreateGistFileController.cs" />
+    <Compile Include="Controllers\PublicGistsController.cs" />
+    <Compile Include="Views\ProfileView.cs" />
+    <Compile Include="Views\GistDetailViewCell.cs" />
+    <Compile Include="Views\GistDetailViewCell.designer.cs">
+      <DependentUpon>GistDetailViewCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Elements\GistDetailElement.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -211,6 +218,7 @@
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Controllers\GitHubLoginController.xib" />
+    <InterfaceDefinition Include="Views\GistDetailViewCell.xib" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SourceBrowser\index.html" />
