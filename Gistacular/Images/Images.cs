@@ -11,6 +11,7 @@ namespace Gistacular
 
         public static UIImage MenuSectionBackground = UIImage.FromBundle("/Images/menu_section_bg");
         public static UIImage MenuNavbar = UIImage.FromBundle("/Images/menu_navbar");
+        public static UIImage Toolbar = UIImage.FromBundle("/Images/toolbar");
         public static UIImage TopNavbar = UIImage.FromBundle("/Images/top_navbar");
         public static UIImage Searchbar = UIImage.FromBundle("/Images/search_bg");
 
@@ -25,6 +26,12 @@ namespace Gistacular
         public static UIImage ViewButton = UIImage.FromBundle("/Images/view");
         public static UIImage EditButton = UIImage.FromBundle("/Images/edit");
         public static UIImage ForkButton = UIImage.FromBundle("/Images/fork");
+
+
+        public static UIImage StarButton = UIImage.FromBundle("/Images/star");
+        public static UIImage CommentButton = UIImage.FromBundle("/Images/comment");
+        public static UIImage ShareButton = UIImage.FromBundle("/Images/share");
+        public static UIImage UserButton = UIImage.FromBundle("/Images/user");
 	}
 }
 

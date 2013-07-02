@@ -31,12 +31,11 @@ namespace Gistacular.Controllers
 			MenuView = new MenuController();
 		}
 
-        public override void ViewDidAppear(bool animated)
+        public override void ViewWillAppear(bool animated)
         {
-            base.ViewDidAppear(animated);
+            base.ViewWillAppear(animated);
 
-            //Select the default view
-            SelectView(new MyGistsController());
+
         }
 	}
 }

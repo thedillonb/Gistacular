@@ -78,7 +78,7 @@ namespace Gistacular.Elements
                 Image = img;
 
             if (_full)
-                gcell.SetInformation(Image, name, _gist.CreatedAt.ToDaysAgo(), str, 0, 0, 0);
+                gcell.SetInformation(Image, name, _gist.CreatedAt.ToDaysAgo(), str, _gist.Forks.Count, _gist.Comments, 0);
             else
                 gcell.SetInformation(Image, name, _gist.CreatedAt.ToDaysAgo(), str);
 

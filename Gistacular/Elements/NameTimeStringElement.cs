@@ -91,15 +91,38 @@ namespace Gistacular.Elements
 
 
                 textColor.SetColor();
-                view.DrawString(String,
-                    new RectangleF(LeftRightPadding, top, bounds.Width - LeftRightPadding*2, bounds.Height - TopBottomPadding - top), DescFont, UILineBreakMode.TailTruncation
-                );
+
+                if (Image == null)
+                {
+                    view.DrawString(String,
+                                    new RectangleF(LeftRightPadding, top, bounds.Width - LeftRightPadding * 2, bounds.Height - TopBottomPadding - top), 
+                                    DescFont, UILineBreakMode.TailTruncation
+                                    );
+                }
+                else
+                {
+                    view.DrawString(String,
+                                    new RectangleF(leftMargin, top, contentWidth, bounds.Height - TopBottomPadding - top), 
+                                    DescFont, UILineBreakMode.TailTruncation
+                                    );
+                }
             }
         }
 
         public override float Height(RectangleF bounds)
         {
-            var contentWidth = bounds.Width - LeftRightPadding * 2; //Account for the Accessory
+            var contentWidth = bounds.Width;
+
+            if (Image == null)
+            {
+                contentWidth = contentWidth - LeftRightPadding * 2;
+            }
+            else
+            {
+                contentWidth = contentWidth - (LeftRightPadding * 3 + 32f + 3f);
+            }
+
+            //Account for the Accessory
             if (IsTappedAssigned)
                 contentWidth -= 20f;
 

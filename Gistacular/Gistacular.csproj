@@ -161,6 +161,9 @@
       <DependentUpon>GistDetailViewCell.cs</DependentUpon>
     </Compile>
     <Compile Include="Elements\GistDetailElement.cs" />
+    <Compile Include="Views\ToolbarButton.cs" />
+    <Compile Include="Controllers\UserGistsController.cs" />
+    <Compile Include="Controllers\Composer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -215,6 +218,16 @@
     <BundleResource Include="Images\edit%402x.png" />
     <BundleResource Include="Images\fork%402x.png" />
     <BundleResource Include="Images\fork.png" />
+    <BundleResource Include="Images\toolbar.png" />
+    <BundleResource Include="Images\toolbar%402x.png" />
+    <BundleResource Include="Images\star%402x.png" />
+    <BundleResource Include="Images\comment%402x.png" />
+    <BundleResource Include="Images\share%402x.png" />
+    <BundleResource Include="Images\comment.png" />
+    <BundleResource Include="Images\share.png" />
+    <BundleResource Include="Images\star.png" />
+    <BundleResource Include="Images\user.png" />
+    <BundleResource Include="Images\user%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Controllers\GitHubLoginController.xib" />

@@ -72,9 +72,8 @@ namespace Gistacular
 //            
 //            UISegmentedControl.Appearance.SetDividerImage(Images.Divider, UIControlState.Normal, UIControlState.Normal, UIBarMetrics.Default);
 //            
-//            UIToolbar.Appearance.SetBackgroundImage(Images.Bottombar.CreateResizableImage(new UIEdgeInsets(0, 0, 0, 0)), UIToolbarPosition.Bottom, UIBarMetrics.Default);
-//            //UIBarButtonItem.Appearance.TintColor = UIColor.White;
-//            
+            UIToolbar.Appearance.SetBackgroundImage(Images.Toolbar.CreateResizableImage(new UIEdgeInsets(0, 0, 0, 0)), UIToolbarPosition.Bottom, UIBarMetrics.Default);
+            
             var textAttrs = new UITextAttributes { TextColor = UIColor.White, TextShadowColor = UIColor.FromRGB(40, 40, 40), TextShadowOffset = new UIOffset(0, 1) };
             UINavigationBar.Appearance.SetTitleTextAttributes(textAttrs);
 
@@ -159,6 +158,8 @@ namespace Gistacular
             _nav = new SlideoutNavigationController();
             //_nav.SetMenuNavigationBackgroundImage(Images.TitlebarDark, UIBarMetrics.Default);
             _window.RootViewController = _nav;
+            //Select the default view
+            _nav.SelectView(new MyGistsController());
         }
 
         public override void ReceiveMemoryWarning(UIApplication application)

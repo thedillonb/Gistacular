@@ -14,8 +14,8 @@ namespace Gistacular.Controllers
     public class GistInfoController : Controller<GistModel>
     {
         TabButtonView _tabButtons;
-        Section _contentSection;
         List<GistCommentModel> _comments;
+        UIBarButtonItem _starButton, _shareButton;
 
         public string Id { get; private set; }
 
@@ -51,17 +51,59 @@ namespace Gistacular.Controllers
                 }));
             }
 
+
+
             //The bottom bar
-//            ToolbarItems = new []
-//            {
-//                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-//                new UIBarButtonItem(UIBarButtonSystemItem.Add),
-//                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-//                new UIBarButtonItem(UIBarButtonSystemItem.Add),
-//                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-//                new UIBarButtonItem(UIBarButtonSystemItem.Add),
-//                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
-//            };
+            ToolbarItems = new []
+            {
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                (_starButton = new UIBarButtonItem(ToolbarButton.Create(Images.StarButton, StarButtonPress))),
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                new UIBarButtonItem(ToolbarButton.Create(Images.UserButton, UserButtonPress)),
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                new UIBarButtonItem(ToolbarButton.Create(Images.CommentButton, CommentButtonPress)),
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                (_shareButton = new UIBarButtonItem(ToolbarButton.Create(Images.ShareButton, ShareButtonPress))),
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
+            };
+        }
+
+        private void UserButtonPress()
+        {
+            if (Model == null || Model.User == null)
+                return;
+            var user = Model.User.Login;
+            NavigationController.PushViewController(new UserGistsController(user), true);
+        }
+
+        private void StarButtonPress()
+        {
+        }
+
+        private void CommentButtonPress()
+        {
+            var composer = new Composer();
+            composer.NewComment(this, () => {
+
+
+            });
+        }
+
+        private void ShareButtonPress()
+        {
+            var sheet = Utilities.GetSheet(String.Empty);
+            var githubButton = sheet.AddButton("View on GitHub");
+            sheet.CancelButtonIndex = sheet.AddButton("Close");
+            sheet.Clicked += (object sender, UIButtonEventArgs e) => {
+                if (e.ButtonIndex == githubButton)
+                {
+                    if (Model != null && Model.HtmlUrl != null)
+                        UIApplication.SharedApplication.OpenUrl(new MonoTouch.Foundation.NSUrl(Model.HtmlUrl));
+                }
+            };
+
+            sheet.ShowFrom(_shareButton, true);
+
         }
 
         /// <summary>
@@ -115,7 +157,7 @@ namespace Gistacular.Controllers
                 if (Model.Forks == null)
                 {
                     Model = null;
-                    Refresh(true);
+                    Refresh();
                 }
                 else
                     OnRefresh();
@@ -227,7 +269,6 @@ namespace Gistacular.Controllers
                     LoadForks(contentSection);
 
                 Root = root;
-                _contentSection = contentSection;
             });
         }
 
@@ -245,11 +286,11 @@ namespace Gistacular.Controllers
             return Application.Client.API.GetGist(Id).Data;
         }
 
-        public override void ViewWillAppear(bool animated)
+        public override void ViewDidAppear(bool animated)
         {
             if (ToolbarItems != null)
                 NavigationController.SetToolbarHidden(IsSearching, animated);
-            base.ViewWillAppear(animated);
+            base.ViewDidAppear(animated);
         }
 
         public override void ViewWillDisappear(bool animated)

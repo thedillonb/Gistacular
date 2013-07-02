@@ -46,13 +46,15 @@ namespace Gistacular.Controllers
             gistMenuSection.Add(new MenuElement("Starred", () => NavigationController.PushViewController(new StarredGistsController(), true), null));
             gistMenuSection.Add(new MenuElement("Public", () => NavigationController.PushViewController(new PublicGistsController(), true), null));
 
-            var labelSection = new Section() { HeaderView = new MenuSectionView("Tags") };
-            root.Add(labelSection);
-            labelSection.Add(new MenuElement("Add New Tag", () => { }, null));
+//            var labelSection = new Section() { HeaderView = new MenuSectionView("Tags") };
+//            root.Add(labelSection);
+//            labelSection.Add(new MenuElement("Add New Tag", () => { }, null));
 
             var moreSection = new Section() { HeaderView = new MenuSectionView("More") };
             root.Add(moreSection);
             moreSection.Add(new MenuElement("Settings", () => { }, null));
+            moreSection.Add(new MenuElement("Feedback & Support", () => { }, null));
+            moreSection.Add(new MenuElement("Logout", () => { }, null));
 		}
         
         protected virtual void NavPush(UIViewController controller)
