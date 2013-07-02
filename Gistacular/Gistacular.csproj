@@ -108,6 +108,7 @@
     <Folder Include="Utilities\" />
     <Folder Include="Views\" />
     <Folder Include="SourceBrowser\" />
+    <Folder Include="CodeEditor\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -152,6 +153,7 @@
     <Compile Include="Controllers\GistInfoController.cs" />
     <Compile Include="Elements\SubcaptionElement.cs" />
     <Compile Include="Views\TabButtonView.cs" />
+    <Compile Include="Controllers\CreateGistFileController.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -243,5 +245,15 @@
     <Content Include="SourceBrowser\prettify.css" />
     <Content Include="SourceBrowser\prettify.js" />
     <Content Include="SourceBrowser\run_prettify.js" />
+    <Content Include="CodeEditor\index.html" />
   </ItemGroup>
+  <ProjectExtensions>
+    <MonoDevelop>
+      <Properties>
+        <Policies>
+          <DotNetNamingPolicy DirectoryNamespaceAssociation="PrefixedHierarchical" ResourceNamePolicy="FileFormatDefault" />
+        </Policies>
+      </Properties>
+    </MonoDevelop>
+  </ProjectExtensions>
 </Project>
