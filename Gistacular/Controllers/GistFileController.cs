@@ -17,7 +17,7 @@ namespace Gistacular.Controllers
             _model = model;
 
             //We can view markdown!
-            if (model.Language.Equals("Markdown"))
+            if (model.Language != null && model.Language.Equals("Markdown"))
             {
                 NavigationItem.RightBarButtonItem = new UIBarButtonItem(NavigationButton.Create(Images.ViewButton, () => {
                     NavigationController.PushViewController(new GistViewableFileController(model, _content), true);
