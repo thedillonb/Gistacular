@@ -185,6 +185,10 @@
       <Project>{3FFBFFF8-5560-4EDE-82E5-3FFDFBBA8A50}</Project>
       <Name>MonoTouch.Dialog</Name>
     </ProjectReference>
+    <ProjectReference Include="..\monotouch-uservoice\UserVoice\UserVoice\UserVoice.csproj">
+      <Project>{3A0C5D98-D568-43C1-A877-B1BA00BA4A87}</Project>
+      <Name>UserVoice</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Images\anonymous.png" />
@@ -239,13 +243,6 @@
     <BundleResource Include="Images\icon\Icon.png" />
     <BundleResource Include="Images\icon\Icon%402x.png" />
     <BundleResource Include="Images\icon\iTunesArtwork%402x.png" />
-    <BundleResource Include="Resources\Default-568h%402x.png" />
-    <BundleResource Include="Resources\Default%402x.png" />
-    <BundleResource Include="Resources\Default.png" />
-    <BundleResource Include="Resources\Default-Landscape.png" />
-    <BundleResource Include="Resources\Default-Landscape%402x.png" />
-    <BundleResource Include="Resources\Default-Portrait.png" />
-    <BundleResource Include="Resources\Default-Portrait%402x.png" />
     <BundleResource Include="Images\launch\launch-ipad-landscape.png" />
     <BundleResource Include="Images\launch\launch-ipad-portrait-retina.png" />
     <BundleResource Include="Images\launch\launch-ipad-portrait.png" />
@@ -253,6 +250,13 @@
     <BundleResource Include="Images\launch\launch-iphone-4inch.png" />
     <BundleResource Include="Images\launch\launch-iphone-retina.png" />
     <BundleResource Include="Images\launch\launch-iphone.png" />
+    <BundleResource Include="Resources\Default.png" />
+    <BundleResource Include="Resources\Default%402x.png" />
+    <BundleResource Include="Resources\Default-568h%402x.png" />
+    <BundleResource Include="Resources\Default-Portrait.png" />
+    <BundleResource Include="Resources\Default-Portrait%402x.png" />
+    <BundleResource Include="Resources\Default-Landscape.png" />
+    <BundleResource Include="Resources\Default-Landscape%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Controllers\GitHubLoginController.xib" />

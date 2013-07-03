@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitHubSharp", "GitHubSharp\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonoTouch.Dialog", "MonoTouch.Dialog\MonoTouch.Dialog\MonoTouch.Dialog.csproj", "{3FFBFFF8-5560-4EDE-82E5-3FFDFBBA8A50}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserVoice", "monotouch-uservoice\UserVoice\UserVoice\UserVoice.csproj", "{3A0C5D98-D568-43C1-A877-B1BA00BA4A87}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|iPhoneSimulator = Debug|iPhoneSimulator
@@ -26,6 +28,24 @@ Global
 		AppStore|iPhoneSimulator = AppStore|iPhoneSimulator
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3A0C5D98-D568-43C1-A877-B1BA00BA4A87}.AdHoc|iPhone.ActiveCfg = Debug|Any CPU
+		{3A0C5D98-D568-43C1-A877-B1BA00BA4A87}.Ad-Hoc|iPhone.ActiveCfg = Release|Any CPU
+		{3A0C5D98-D568-43C1-A877-B1BA00BA4A87}.AdHoc|iPhone.Build.0 = Debug|Any CPU
+		{3A0C5D98-D568-43C1-A877-B1BA00BA4A87}.Ad-Hoc|iPhone.Build.0 = Release|Any CPU
+		{3A0C5D98-D568-43C1-A877-B1BA00BA4A87}.AdHoc|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{3A0C5D98-D568-43C1-A877-B1BA00BA4A87}.AdHoc|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{3A0C5D98-D568-43C1-A877-B1BA00BA4A87}.AppStore|iPhone.ActiveCfg = Release|Any CPU
+		{3A0C5D98-D568-43C1-A877-B1BA00BA4A87}.AppStore|iPhone.Build.0 = Release|Any CPU
+		{3A0C5D98-D568-43C1-A877-B1BA00BA4A87}.AppStore|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{3A0C5D98-D568-43C1-A877-B1BA00BA4A87}.AppStore|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{3A0C5D98-D568-43C1-A877-B1BA00BA4A87}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{3A0C5D98-D568-43C1-A877-B1BA00BA4A87}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{3A0C5D98-D568-43C1-A877-B1BA00BA4A87}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{3A0C5D98-D568-43C1-A877-B1BA00BA4A87}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{3A0C5D98-D568-43C1-A877-B1BA00BA4A87}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{3A0C5D98-D568-43C1-A877-B1BA00BA4A87}.Release|iPhone.Build.0 = Release|Any CPU
+		{3A0C5D98-D568-43C1-A877-B1BA00BA4A87}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{3A0C5D98-D568-43C1-A877-B1BA00BA4A87}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 		{3FFBFFF8-5560-4EDE-82E5-3FFDFBBA8A50}.AdHoc|iPhone.ActiveCfg = AdHoc|iPhone
 		{3FFBFFF8-5560-4EDE-82E5-3FFDFBBA8A50}.Ad-Hoc|iPhone.ActiveCfg = Release|iPhone
 		{3FFBFFF8-5560-4EDE-82E5-3FFDFBBA8A50}.AdHoc|iPhone.Build.0 = AdHoc|iPhone
@@ -122,6 +142,7 @@ Global
 		{E9A9D1C5-4E06-4D31-9809-A97188C70B2C} = {CE7E9AC7-3EE5-40BE-AC61-9AE913CE3580}
 		{89E14828-85BB-4790-9B4E-E44DD4CE000E} = {CE7E9AC7-3EE5-40BE-AC61-9AE913CE3580}
 		{3FFBFFF8-5560-4EDE-82E5-3FFDFBBA8A50} = {CE7E9AC7-3EE5-40BE-AC61-9AE913CE3580}
+		{3A0C5D98-D568-43C1-A877-B1BA00BA4A87} = {CE7E9AC7-3EE5-40BE-AC61-9AE913CE3580}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Gistacular\Gistacular.csproj

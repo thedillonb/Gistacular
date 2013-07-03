@@ -53,7 +53,10 @@ namespace Gistacular.Controllers
             var moreSection = new Section() { HeaderView = new MenuSectionView("More") };
             root.Add(moreSection);
             moreSection.Add(new MenuElement("Settings", () => { }, null));
-            moreSection.Add(new MenuElement("Feedback & Support", () => { }, null));
+            moreSection.Add(new MenuElement("Feedback & Support", () => { 
+                var config = UserVoice.UVConfig.Create("http://gistacular.uservoice.com", "lYY6AwnzrNKjHIkiiYbbqA", "9iLse96r8yki4ZKknfHKBlWcbZAH9g8yQWb9fuG4");
+                UserVoice.UserVoice.PresentUserVoiceInterface(this, config);
+            }, null));
             moreSection.Add(new MenuElement("Logout", () => { }, null));
 		}
         
