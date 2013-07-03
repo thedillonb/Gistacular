@@ -38,13 +38,13 @@ namespace Gistacular.Controllers
 		{
             var addGistSection = new Section();
             root.Add(addGistSection);
-            addGistSection.Add(new MenuElement("New Gist", () => NavigationController.PushViewController(new CreateGistController(), true), null));
+            addGistSection.Add(new MenuElement("New Gist", () => NavigationController.PushViewController(new CreateGistController(), true), Images.NewGist));
 
             var gistMenuSection = new Section() { HeaderView = new MenuSectionView("Gists") };
             root.Add(gistMenuSection);
-            gistMenuSection.Add(new MenuElement("My Gists", () => NavigationController.PushViewController(new MyGistsController(), true), null));
-            gistMenuSection.Add(new MenuElement("Starred", () => NavigationController.PushViewController(new StarredGistsController(), true), null));
-            gistMenuSection.Add(new MenuElement("Public", () => NavigationController.PushViewController(new PublicGistsController(), true), null));
+            gistMenuSection.Add(new MenuElement("My Gists", () => NavigationController.PushViewController(new MyGistsController(), true), Images.MyGists));
+            gistMenuSection.Add(new MenuElement("Starred", () => NavigationController.PushViewController(new StarredGistsController(), true), Images.Star2));
+            gistMenuSection.Add(new MenuElement("Public", () => NavigationController.PushViewController(new PublicGistsController(), true), Images.Public));
 
 //            var labelSection = new Section() { HeaderView = new MenuSectionView("Tags") };
 //            root.Add(labelSection);
@@ -52,12 +52,12 @@ namespace Gistacular.Controllers
 
             var moreSection = new Section() { HeaderView = new MenuSectionView("More") };
             root.Add(moreSection);
-            moreSection.Add(new MenuElement("Settings", () => { }, null));
+            moreSection.Add(new MenuElement("Settings", () => { }, Images.Settings));
             moreSection.Add(new MenuElement("Feedback & Support", () => { 
                 var config = UserVoice.UVConfig.Create("http://gistacular.uservoice.com", "lYY6AwnzrNKjHIkiiYbbqA", "9iLse96r8yki4ZKknfHKBlWcbZAH9g8yQWb9fuG4");
                 UserVoice.UserVoice.PresentUserVoiceInterface(this, config);
-            }, null));
-            moreSection.Add(new MenuElement("Logout", () => { }, null));
+            }, Images.Feedback));
+            moreSection.Add(new MenuElement("Logout", () => { }, Images.Logout));
 		}
         
         protected virtual void NavPush(UIViewController controller)
@@ -100,6 +100,7 @@ namespace Gistacular.Controllers
 				BackgroundColor = UIColor.Clear;
 				TextColor = UIColor.FromRGB(213, 213, 213);
 				DetailColor = UIColor.White;
+                Image = image;
 			}
 			
 			public override UITableViewCell GetCell(UITableView tv)

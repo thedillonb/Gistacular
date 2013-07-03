@@ -58,6 +58,7 @@ namespace Gistacular.Controllers
                 {
                     if (error != null)
                         controller.InvokeOnMainThread(() => error(e));
+                    Utilities.LogException("Unable to do work", e);
                 }
                 finally 
                 {

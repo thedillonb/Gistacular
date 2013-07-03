@@ -26,6 +26,7 @@ using System;
 using System.Drawing;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
+using Gistacular.Views;
 
 namespace Gistacular.Controllers
 {
@@ -102,9 +103,9 @@ namespace Gistacular.Controllers
 		    _navigationBar = new UINavigationBar(new RectangleF(0, 0, UIScreen.MainScreen.Bounds.Width, 44))
 		                         {AutoresizingMask = UIViewAutoresizing.FlexibleWidth, AutosizesSubviews = true};
 		    _navItem = new UINavigationItem ("");
-			var close = new UIBarButtonItem ("Close", UIBarButtonItemStyle.Plain, (s, e) => CloseComposer());
+			var close = new UIBarButtonItem (NavigationButton.Create(Images.TrashButton, CloseComposer));
 			_navItem.LeftBarButtonItem = close;
-			SendItem = new UIBarButtonItem ("Create", UIBarButtonItemStyle.Plain, PostCallback);
+			SendItem = new UIBarButtonItem (NavigationButton.Create(Images.SaveButton, PostCallback));
 			_navItem.RightBarButtonItem = SendItem;
 
 			_navigationBar.PushNavigationItem (_navItem, false);
@@ -137,7 +138,7 @@ namespace Gistacular.Controllers
 			_previousController.DismissModalViewControllerAnimated (true);
         }
 
-		void PostCallback (object sender, EventArgs a)
+		void PostCallback ()
 		{
 			SendItem.Enabled = false;
 

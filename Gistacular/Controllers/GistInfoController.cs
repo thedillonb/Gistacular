@@ -15,7 +15,9 @@ namespace Gistacular.Controllers
     {
         TabButtonView _tabButtons;
         List<GistCommentModel> _comments;
-        UIBarButtonItem _starButton, _shareButton;
+        UIBarButtonItem _shareButton;
+        UIButton _starButton;
+        bool _starred = false;
 
         public string Id { get; private set; }
 
@@ -56,7 +58,7 @@ namespace Gistacular.Controllers
             ToolbarItems = new []
             {
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                (_starButton = new UIBarButtonItem(ToolbarButton.Create(Images.StarButton, StarButtonPress))),
+                new UIBarButtonItem((_starButton = ToolbarButton.Create(Images.StarButton, StarButtonPress))),
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
                 new UIBarButtonItem(ToolbarButton.Create(Images.UserButton, UserButtonPress)),
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
@@ -77,6 +79,34 @@ namespace Gistacular.Controllers
 
         private void StarButtonPress()
         {
+            if (Model == null)
+                return;
+
+            // Don't show the HUD because these are sooo quick that it ends up being a goofy flash of a screen
+            if (_starred)
+            {
+                this.DoWorkNoHud(() => {
+                    Application.Client.API.UnstarGist(Model.Id);
+                    _starred = false;
+                    UpdateStar();
+                });
+            }
+            else
+            {
+                this.DoWorkNoHud(() => {
+                    Application.Client.API.StarGist(Model.Id);
+                    _starred = true;
+                    UpdateStar();
+                });
+            }
+        }
+
+        private void UpdateStar()
+        {
+            InvokeOnMainThread(() => {
+                _starButton.SetImage(_starred ? Images.StarHighlightedButton : Images.StarButton, UIControlState.Normal);
+                _starButton.SetNeedsDisplay();
+            });
         }
 
         private void CommentButtonPress()
@@ -285,6 +315,8 @@ namespace Gistacular.Controllers
 
                 Root = root;
             });
+
+            UpdateStar();
         }
 
         protected override GistModel OnUpdate(bool forced)
@@ -302,7 +334,27 @@ namespace Gistacular.Controllers
             else
                 _comments = null;
 
+            //I've noticed that sometimes this randomly fails (especially when you just created a fork)
+            //Don't bet the farm on this working...
+            try
+            {
+                _starred = Application.Client.API.IsGistStarred(Id);
+            }
+            catch (Exception e)
+            {
+                Utilities.LogException("Unable to determine if gist was starred!", e);
+            }
+
             return Application.Client.API.GetGist(Id).Data;
+        }
+
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            this.DoWorkNoHud(() => {
+                _starred = Application.Client.API.IsGistStarred(Id);
+                UpdateStar();
+            });
         }
 
         public override void ViewDidAppear(bool animated)

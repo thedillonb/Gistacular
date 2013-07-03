@@ -249,6 +249,26 @@
     <BundleResource Include="Resources\Default-Portrait%402x.png" />
     <BundleResource Include="Resources\Default-Landscape.png" />
     <BundleResource Include="Resources\Default-Landscape%402x.png" />
+    <BundleResource Include="Images\trash.png" />
+    <BundleResource Include="Images\trash%402x.png" />
+    <BundleResource Include="Images\save.png" />
+    <BundleResource Include="Images\save%402x.png" />
+    <BundleResource Include="Images\star_highlighted.png" />
+    <BundleResource Include="Images\star_highlighted%402x.png" />
+    <BundleResource Include="Images\new_gist%402x.png" />
+    <BundleResource Include="Images\feedback.png" />
+    <BundleResource Include="Images\feedback%402x.png" />
+    <BundleResource Include="Images\logout.png" />
+    <BundleResource Include="Images\logout%402x.png" />
+    <BundleResource Include="Images\new_gist.png" />
+    <BundleResource Include="Images\settings.png" />
+    <BundleResource Include="Images\settings%402x.png" />
+    <BundleResource Include="Images\star2.png" />
+    <BundleResource Include="Images\star2%402x.png" />
+    <BundleResource Include="Images\my_gists.png" />
+    <BundleResource Include="Images\my_gists%402x.png" />
+    <BundleResource Include="Images\public.png" />
+    <BundleResource Include="Images\public%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Controllers\GitHubLoginController.xib" />
