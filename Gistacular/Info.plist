@@ -40,5 +40,7 @@
 		<string>Images/icon/Icon-Small-50</string>
 		<string>Images/icon/Icon-Small-50@2x</string>
 	</array>
+	<key>UIPrerenderedIcon</key>
+	<true/>
 </dict>
 </plist>

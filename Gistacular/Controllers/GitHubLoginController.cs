@@ -31,7 +31,6 @@ namespace Gistacular.Controllers
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-            //View.BackgroundColor = UIColor.FromPatternImage(Images.LogoBehind);
 
             Title = "Login";
 			Logo.Image = Images.GitHubLogo;

@@ -110,6 +110,7 @@
     <Folder Include="SourceBrowser\" />
     <Folder Include="CodeEditor\" />
     <Folder Include="Images\icon\" />
+    <Folder Include="Images\launch\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -238,6 +239,20 @@
     <BundleResource Include="Images\icon\Icon.png" />
     <BundleResource Include="Images\icon\Icon%402x.png" />
     <BundleResource Include="Images\icon\iTunesArtwork%402x.png" />
+    <BundleResource Include="Resources\Default-568h%402x.png" />
+    <BundleResource Include="Resources\Default%402x.png" />
+    <BundleResource Include="Resources\Default.png" />
+    <BundleResource Include="Resources\Default-Landscape.png" />
+    <BundleResource Include="Resources\Default-Landscape%402x.png" />
+    <BundleResource Include="Resources\Default-Portrait.png" />
+    <BundleResource Include="Resources\Default-Portrait%402x.png" />
+    <BundleResource Include="Images\launch\launch-ipad-landscape.png" />
+    <BundleResource Include="Images\launch\launch-ipad-portrait-retina.png" />
+    <BundleResource Include="Images\launch\launch-ipad-portrait.png" />
+    <BundleResource Include="Images\launch\launch-ipad-retina-landscape.png" />
+    <BundleResource Include="Images\launch\launch-iphone-4inch.png" />
+    <BundleResource Include="Images\launch\launch-iphone-retina.png" />
+    <BundleResource Include="Images\launch\launch-iphone.png" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Controllers\GitHubLoginController.xib" />
