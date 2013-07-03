@@ -109,6 +109,7 @@
     <Folder Include="Views\" />
     <Folder Include="SourceBrowser\" />
     <Folder Include="CodeEditor\" />
+    <Folder Include="Images\icon\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -228,6 +229,15 @@
     <BundleResource Include="Images\star.png" />
     <BundleResource Include="Images\user.png" />
     <BundleResource Include="Images\user%402x.png" />
+    <BundleResource Include="Images\icon\Icon-72.png" />
+    <BundleResource Include="Images\icon\Icon-72%402x.png" />
+    <BundleResource Include="Images\icon\Icon-Small-50.png" />
+    <BundleResource Include="Images\icon\Icon-Small-50%402x.png" />
+    <BundleResource Include="Images\icon\Icon-Small.png" />
+    <BundleResource Include="Images\icon\Icon-Small%402x.png" />
+    <BundleResource Include="Images\icon\Icon.png" />
+    <BundleResource Include="Images\icon\Icon%402x.png" />
+    <BundleResource Include="Images\icon\iTunesArtwork%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Controllers\GitHubLoginController.xib" />
@@ -277,4 +287,8 @@
       </Properties>
     </MonoDevelop>
   </ProjectExtensions>
+  <ItemGroup>
+    <ITunesArtwork Include="Images\icon\iTunesArtwork.png" />
+    <ITunesArtwork Include="iTunesArtwork%402x" />
+  </ItemGroup>
 </Project>
