@@ -12,14 +12,10 @@ namespace Gistacular.Controllers
     {
         UILabel _title;
 
-
-		public MenuController()
+        public MenuController()
             : base(UITableViewStyle.Plain, new RootElement("Gistacular"))
         {
             Autorotate = true;
-//            if (Application.Account != null && !string.IsNullOrEmpty(Application.Account.Username))
-//                Root.Caption = Application.Account.Username;
-
             _title = new UILabel(new RectangleF(0, 40, 320, 40));
             _title.TextAlignment = UITextAlignment.Left;
             _title.BackgroundColor = UIColor.Clear;
@@ -27,7 +23,6 @@ namespace Gistacular.Controllers
             _title.TextColor = UIColor.FromRGB(246, 246, 246);
             _title.ShadowColor = UIColor.FromRGB(21, 21, 21);
             _title.ShadowOffset = new SizeF(0, 1);
-
             NavigationItem.TitleView = _title;
         }
 
@@ -38,7 +33,11 @@ namespace Gistacular.Controllers
 		{
             var addGistSection = new Section();
             root.Add(addGistSection);
-            addGistSection.Add(new MenuElement("New Gist", () => NavigationController.PushViewController(new CreateGistController(), true), Images.NewGist));
+            addGistSection.Add(new MenuElement("New Gist", () => {
+                var gistController = new CreateGistController();
+                var navController = new UINavigationController(gistController);
+                PresentViewController(navController, true, null);
+            }, Images.NewGist));
 
             var gistMenuSection = new Section() { HeaderView = new MenuSectionView("Gists") };
             root.Add(gistMenuSection);
@@ -59,12 +58,7 @@ namespace Gistacular.Controllers
             }, Images.Feedback));
             moreSection.Add(new MenuElement("Logout", () => { }, Images.Logout));
 		}
-        
-        protected virtual void NavPush(UIViewController controller)
-        {
-            NavigationController.PushViewController(controller, false);
-        }
-        
+
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
@@ -75,7 +69,6 @@ namespace Gistacular.Controllers
             TableView.SeparatorColor = UIColor.FromRGB(14, 14, 14);
             TableView.TableFooterView = new UIView(new RectangleF(0, 0, View.Bounds.Width, 0));
             TableView.BackgroundColor = UIColor.FromRGB(34, 34, 34);
-
 
             //Prevent the scroll to top on this view
             this.TableView.ScrollsToTop = false;

@@ -6,8 +6,10 @@ namespace Gistacular.Views
 {
     public class CellBackgroundView : UIView
     {
-        static readonly CGGradient BottomGradient;
-        static readonly CGGradient TopGradient;
+        public static readonly CGGradient BottomGradient;
+        public static readonly CGGradient TopGradient;
+
+        public readonly static CellBackgroundView Instance = new CellBackgroundView();
 
         static CellBackgroundView ()
         {
@@ -23,6 +25,24 @@ namespace Gistacular.Views
                 };
                 TopGradient = new CGGradient (rgb, colorsTop, null);
             }
+        }
+
+        public static UIImage CreateUIImage(float height)
+        {
+            var bounds = new RectangleF(0, 0, 2f, height);
+            UIGraphics.BeginImageContext(bounds.Size);
+
+            var context = UIGraphics.GetCurrentContext();
+            var midx = bounds.Width/2;
+            UIColor.White.SetColor ();
+            context.FillRect (bounds);
+            context.DrawLinearGradient (BottomGradient, new PointF (midx, bounds.Height-17), new PointF (midx, bounds.Height), 0);
+            context.DrawLinearGradient (TopGradient, new PointF (midx, 1), new PointF (midx, 3), 0);
+
+            var img = UIGraphics.GetImageFromCurrentImageContext();
+            UIGraphics.EndImageContext();
+
+            return img;
         }
 
         public override void Draw(RectangleF rect)

@@ -103,7 +103,7 @@ namespace Gistacular.Controllers
 		    _navigationBar = new UINavigationBar(new RectangleF(0, 0, UIScreen.MainScreen.Bounds.Width, 44))
 		                         {AutoresizingMask = UIViewAutoresizing.FlexibleWidth, AutosizesSubviews = true};
 		    _navItem = new UINavigationItem ("");
-			var close = new UIBarButtonItem (NavigationButton.Create(Images.TrashButton, CloseComposer));
+			var close = new UIBarButtonItem (NavigationButton.Create(Images.CancelButton, CloseComposer));
 			_navItem.LeftBarButtonItem = close;
 			SendItem = new UIBarButtonItem (NavigationButton.Create(Images.SaveButton, PostCallback));
 			_navItem.RightBarButtonItem = SendItem;

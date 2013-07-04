@@ -165,6 +165,8 @@
     <Compile Include="Views\ToolbarButton.cs" />
     <Compile Include="Controllers\UserGistsController.cs" />
     <Compile Include="Controllers\Composer.cs" />
+    <Compile Include="Elements\MultilinedElement.cs" />
+    <Compile Include="Elements\TrueFalseElement.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -269,6 +271,8 @@
     <BundleResource Include="Images\my_gists%402x.png" />
     <BundleResource Include="Images\public.png" />
     <BundleResource Include="Images\public%402x.png" />
+    <BundleResource Include="Images\cancel.png" />
+    <BundleResource Include="Images\cancel%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Controllers\GitHubLoginController.xib" />

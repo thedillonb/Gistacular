@@ -34,8 +34,8 @@ namespace Gistacular
         public static UIImage ShareButton = UIImage.FromBundle("/Images/share");
         public static UIImage UserButton = UIImage.FromBundle("/Images/user");
 
-        public static UIImage TrashButton = UIImage.FromBundle("/Images/trash");
         public static UIImage SaveButton = UIImage.FromBundle("/Images/save");
+        public static UIImage CancelButton = UIImage.FromBundle("/Images/cancel");
 
         public static UIImage NewGist = UIImage.FromBundle("/Images/new_gist");
         public static UIImage Feedback = UIImage.FromBundle("/Images/feedback");

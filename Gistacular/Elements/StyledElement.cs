@@ -1,5 +1,6 @@
 using MonoTouch.UIKit;
 using MonoTouch.Foundation;
+using Gistacular.Views;
 
 namespace Gistacular.Elements
 {
@@ -9,7 +10,6 @@ namespace Gistacular.Elements
         public static UIFont  DefaultDetailFont = UIFont.SystemFontOfSize(15f);
         public static UIColor DefaultTitleColor = UIColor.FromRGB(41, 41, 41);
         public static UIColor DefaultDetailColor = UIColor.FromRGB(120, 120, 120);
-        public static UIColor BgColor;
 
         public StyledElement(string title)
             : base(title)
@@ -52,11 +52,20 @@ namespace Gistacular.Elements
         }
 
 
+        private static UIColor _computedBackgroundColor;
+
         private void Init()
         {
+            if (_computedBackgroundColor == null)
+            {
+                var background = CellBackgroundView.CreateUIImage(44f);
+                _computedBackgroundColor = UIColor.FromPatternImage(background);
+                background.Dispose();
+            }
+
             Font = DefaultTitleFont;
             SubtitleFont = DefaultDetailFont;
-            BackgroundColor = BgColor;
+            BackgroundColor = _computedBackgroundColor;
             TextColor = DefaultTitleColor;
             DetailColor = DefaultDetailColor;
             LineBreakMode = UILineBreakMode.TailTruncation;

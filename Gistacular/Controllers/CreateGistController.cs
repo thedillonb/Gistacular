@@ -4,17 +4,49 @@ using System.Collections.Generic;
 using MonoTouch.Dialog;
 using Gistacular.Views;
 using MonoTouch.UIKit;
+using Gistacular.Elements;
+using System.Drawing;
 
 namespace Gistacular.Controllers
 {
     public class CreateGistController : BaseDialogViewController
     {
-        public CreateGistController()
+        private GistModel _editModel;
+        private bool _isEdit;
+
+
+        public CreateGistController(GistModel editModel = null)
             : base(true)
         {
-            Title = "Create Gist";
-            Style = UITableViewStyle.Plain;
-            NavigationItem.RightBarButtonItem = new UIBarButtonItem(NavigationButton.Create(Images.AddButton, () => AddFile()));
+            _editModel = editModel;
+            Title = _isEdit ? "Edit Gist" : "Create Gist";
+            Style = UITableViewStyle.Grouped;
+
+            NavigationItem.LeftBarButtonItem = new UIBarButtonItem (NavigationButton.Create(Images.CancelButton, Discard));
+            NavigationItem.RightBarButtonItem = new UIBarButtonItem(NavigationButton.Create(Images.SaveButton, Save));
+        }
+
+        private new void Delete()
+        {
+            this.DoWork(() => {
+                Application.Client.API.DeleteGist("");
+                InvokeOnMainThread(() => {
+                    DismissViewController(true, null);
+                });
+            });
+        }
+
+        private void Discard()
+        {
+            DismissViewController(true, null);
+        }
+
+        private void Save()
+        {
+            this.DoWork(() => {
+
+
+            });
         }
 
         private void AddFile()
@@ -23,36 +55,35 @@ namespace Gistacular.Controllers
             NavigationController.PushViewController(createController, true);
         }
 
-
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
 
+            var root = new RootElement(Title) { UnevenRows = true };
             var section = new Section();
-            section.Add(new Entry());
-            Root = new RootElement(Title) { section };
-        }
-    }
+            root.Add(section);
 
-    public class Entry : MonoTouch.Dialog.EntryElement
-    {
-        public Entry()
-            : base("Description", "(Optional)", String.Empty)
-        {
-            TitleFont = UIFont.BoldSystemFontOfSize(10f);
-            EntryFont = UIFont.SystemFontOfSize(10f);
-        }
 
-        public override UITableViewCell GetCell(UITableView tv)
-        {
-            var cell = base.GetCell(tv);
-            cell.BackgroundView = new CellBackgroundView();
-            cell.ContentView.BackgroundColor = UIColor.Clear;
+            var desc = new MultilinedElement("Description");
+            desc.Tapped += () =>
+            {
+                var composer = new Composer { Title = "Description", Text = desc.Value, ActionButtonText = "Save" };
+                composer.NewComment(this, () => {
+                    var text = composer.Text;
+                    desc.Value = text;
+                    composer.CloseComposer();
+                    Root.Reload(desc, UITableViewRowAnimation.None);
+                });
+            };
 
-            foreach (var views in cell.ContentView.Subviews)
-                views.BackgroundColor = UIColor.Clear;
+            section.Add(desc);
+            section.Add(new TrueFalseElement("Public") { Value = true });
 
-            return cell;
+            var fileSection = new Section();
+            root.Add(fileSection);
+            fileSection.Add(new StyledElement("Add New File", AddFile));
+
+            Root = root;
         }
     }
 }
