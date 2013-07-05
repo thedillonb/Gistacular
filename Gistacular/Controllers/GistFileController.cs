@@ -17,7 +17,7 @@ namespace Gistacular.Controllers
             _model = model;
 
             //We can view markdown!
-            if (model.Language != null && model.Language.Equals("Markdown"))
+            if (model.Language != null && (model.Language.Equals("Markdown") || model.Language.Equals("HTML")))
             {
                 NavigationItem.RightBarButtonItem = new UIBarButtonItem(NavigationButton.Create(Images.Buttons.View, () => {
                     NavigationController.PushViewController(new GistViewableFileController(model, _content), true);
@@ -46,12 +46,19 @@ namespace Gistacular.Controllers
 
         protected override void Request()
         {
-            //If we already have it no need to request it again
-            if (_content == null)
-                _content = Application.Client.API.GetGistFile(_model.RawUrl);
+            if (_model.Language.Equals("Markdown"))
+            {
+                //If we already have it no need to request it again
+                if (_content == null)
+                    _content = Application.Client.API.GetGistFile(_model.RawUrl);
 
-            var data = Application.Client.API.GetMarkdown(_content);
-            LoadRawData(data);
+                var data = Application.Client.API.GetMarkdown(_content);
+                LoadRawData(data);
+            }
+            else if (_model.Language.Equals("HTML"))
+            {
+                LoadRawData(_content);
+            }
         }
     }
 
