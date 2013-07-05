@@ -60,7 +60,7 @@ namespace Gistacular.Controllers
 		public BaseDialogViewController(bool push, string backButtonText)
 			: base(new RootElement(""), push)
 		{
-            NavigationItem.LeftBarButtonItem = new UIBarButtonItem(NavigationButton.Create(Images.BackButton, () => NavigationController.PopViewControllerAnimated(true)));
+            NavigationItem.LeftBarButtonItem = new UIBarButtonItem(NavigationButton.Create(Images.Buttons.Back, () => NavigationController.PopViewControllerAnimated(true)));
 			SearchPlaceholder = "Search";
 			Autorotate = true;
 		}
@@ -120,7 +120,7 @@ namespace Gistacular.Controllers
             public override void CreateViews()
             {
                 base.CreateViews();
-                ArrowView.Image = Images.Arrow;
+                ArrowView.Image = Images.Components.Arrow;
                 LastUpdateLabel.TextColor = UIColor.FromRGB(133, 133, 133);
                 StatusLabel.TextColor = UIColor.FromRGB(133, 133, 133);
             }

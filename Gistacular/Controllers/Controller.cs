@@ -37,7 +37,7 @@ namespace Gistacular.Controllers
 
         protected override UISearchBar CreateHeaderView()
         {
-            _searchBar = new UISearchBar(new RectangleF(0f, 0f, 320f, 44f)) {Delegate = new CustomSearchDelegate<T>(this)};
+            _searchBar = new UISearchBar(new RectangleF(0f, 0f, 320f, 44f)) {Delegate = new CustomSearchDelegate(this)};
             _searchBar.Placeholder = SearchPlaceholder;
             return _searchBar;
         }
@@ -89,7 +89,7 @@ namespace Gistacular.Controllers
             }
         }
 
-        class CustomSearchDelegate<T> : UISearchBarDelegate where T : class
+        class CustomSearchDelegate : UISearchBarDelegate
         {
             readonly Controller<T> _container;
             DialogViewController _searchController;

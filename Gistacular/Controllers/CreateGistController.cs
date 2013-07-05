@@ -22,8 +22,8 @@ namespace Gistacular.Controllers
             Title = _isEdit ? "Edit Gist" : "Create Gist";
             Style = UITableViewStyle.Grouped;
 
-            NavigationItem.LeftBarButtonItem = new UIBarButtonItem (NavigationButton.Create(Images.CancelButton, Discard));
-            NavigationItem.RightBarButtonItem = new UIBarButtonItem(NavigationButton.Create(Images.SaveButton, Save));
+            NavigationItem.LeftBarButtonItem = new UIBarButtonItem (NavigationButton.Create(Images.Buttons.Cancel, Discard));
+            NavigationItem.RightBarButtonItem = new UIBarButtonItem(NavigationButton.Create(Images.Buttons.Save, Save));
         }
 
         private new void Delete()

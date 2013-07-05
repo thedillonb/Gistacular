@@ -33,7 +33,7 @@ namespace Gistacular.Controllers
             base.ViewDidLoad();
 
             Title = "Login";
-			Logo.Image = Images.GitHubLogo;
+			Logo.Image = Images.Misc.GitHubLogo;
             if (Username != null)
                 User.Text = Username;
 

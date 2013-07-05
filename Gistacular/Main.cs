@@ -57,13 +57,13 @@ namespace Gistacular
         {
             //Set the status bar
             UIApplication.SharedApplication.SetStatusBarStyle(UIStatusBarStyle.BlackOpaque, false);
-            UIToolbar.Appearance.SetBackgroundImage(Images.Toolbar.CreateResizableImage(new UIEdgeInsets(0, 0, 0, 0)), UIToolbarPosition.Bottom, UIBarMetrics.Default);
+            UIToolbar.Appearance.SetBackgroundImage(Images.Components.Toolbar.CreateResizableImage(new UIEdgeInsets(0, 0, 0, 0)), UIToolbarPosition.Bottom, UIBarMetrics.Default);
             
             var textAttrs = new UITextAttributes { TextColor = UIColor.White, TextShadowColor = UIColor.FromRGB(40, 40, 40), TextShadowOffset = new UIOffset(0, 1) };
             UINavigationBar.Appearance.SetTitleTextAttributes(textAttrs);
 
-            UISearchBar.Appearance.BackgroundImage = Images.Searchbar.CreateResizableImage(new UIEdgeInsets(0, 1f, 0, 1f));
-            UINavigationBar.Appearance.SetBackgroundImage(Images.TopNavbar.CreateResizableImage(new UIEdgeInsets(0, 0, 0, 0)), UIBarMetrics.Default);
+            UISearchBar.Appearance.BackgroundImage = Images.Components.Searchbar.CreateResizableImage(new UIEdgeInsets(0, 1f, 0, 1f));
+            UINavigationBar.Appearance.SetBackgroundImage(Images.Components.TopNavbar.CreateResizableImage(new UIEdgeInsets(0, 0, 0, 0)), UIBarMetrics.Default);
             UINavigationBar.AppearanceWhenContainedIn(typeof(UIPopoverController)).SetBackgroundImage (null, UIBarMetrics.Default);
         }
 

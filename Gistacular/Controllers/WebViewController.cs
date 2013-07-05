@@ -30,7 +30,7 @@ namespace Gistacular.Controllers
             Web.LoadStarted += OnLoadStarted;
             Web.LoadError += OnLoadError;
 
-            NavigationItem.LeftBarButtonItem = new UIBarButtonItem(NavigationButton.Create(Images.BackButton, () => NavigationController.PopViewControllerAnimated(true)));
+            NavigationItem.LeftBarButtonItem = new UIBarButtonItem(NavigationButton.Create(Images.Buttons.Back, () => NavigationController.PopViewControllerAnimated(true)));
         }
 
         protected virtual void OnLoadError (object sender, UIWebErrorArgs e)

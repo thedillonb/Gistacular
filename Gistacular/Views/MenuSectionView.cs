@@ -9,7 +9,7 @@ namespace Gistacular
         public MenuSectionView(string caption)
             : base(new RectangleF(0, 0, 320, 27))
         {
-            UIImageView background = new UIImageView(Images.MenuSectionBackground);
+            UIImageView background = new UIImageView(Images.Components.MenuSectionBackground);
             background.Frame = this.Frame; 
 
             UILabel label = new UILabel(); 

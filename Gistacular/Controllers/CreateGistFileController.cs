@@ -138,7 +138,7 @@ namespace Gistacular.Controllers
         {
             ReturnAction = action;
             _previousController = parent;
-            parent.PresentModalViewController (this, true);
+            parent.PresentViewController(this, true, null);
         }
     }
 }

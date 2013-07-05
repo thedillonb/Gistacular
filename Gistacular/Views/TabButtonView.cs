@@ -31,9 +31,9 @@ namespace Gistacular.Views
             //var textAttrsHighlighted = new UITextAttributes { TextColor = UIColor.White, TextShadowColor = UIColor.FromRGB(122, 122, 122), TextShadowOffset = new UIOffset(0, 1) };
             //_segment.SetTitleTextAttributes(textAttrsHighlighted, UIControlState.Highlighted);
 
-            _segment.SetDividerImage(Images.TabsVertical, UIControlState.Normal, UIControlState.Normal, UIBarMetrics.Default);
-            _segment.SetBackgroundImage(Images.TabsBackground, UIControlState.Normal, UIBarMetrics.Default);
-            _segment.SetBackgroundImage(Images.TabsHighlighted, UIControlState.Selected, UIBarMetrics.Default);
+            _segment.SetDividerImage(Images.Components.TabsVertical, UIControlState.Normal, UIControlState.Normal, UIBarMetrics.Default);
+            _segment.SetBackgroundImage(Images.Components.TabsBackground, UIControlState.Normal, UIBarMetrics.Default);
+            _segment.SetBackgroundImage(Images.Components.TabsHighlighted, UIControlState.Selected, UIBarMetrics.Default);
 
             AddSubview(_segment);
 

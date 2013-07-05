@@ -33,12 +33,12 @@ namespace Gistacular.Controllers
 
             if (owned)
             {
-                NavigationItem.RightBarButtonItem = new UIBarButtonItem(NavigationButton.Create(Images.EditButton, () => {
+                NavigationItem.RightBarButtonItem = new UIBarButtonItem(NavigationButton.Create(Images.Buttons.Edit, () => {
                 }));
             }
             else
             {
-                NavigationItem.RightBarButtonItem = new UIBarButtonItem(NavigationButton.Create(Images.ForkButton, () => {
+                NavigationItem.RightBarButtonItem = new UIBarButtonItem(NavigationButton.Create(Images.Buttons.Fork, () => {
                     NavigationItem.RightBarButtonItem.Enabled = false;
 
                     this.DoWork(() => {
@@ -58,13 +58,13 @@ namespace Gistacular.Controllers
             ToolbarItems = new []
             {
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                new UIBarButtonItem((_starButton = ToolbarButton.Create(Images.StarButton, StarButtonPress))),
+                new UIBarButtonItem((_starButton = ToolbarButton.Create(Images.Buttons.Star, StarButtonPress))),
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                new UIBarButtonItem(ToolbarButton.Create(Images.UserButton, UserButtonPress)),
+                new UIBarButtonItem(ToolbarButton.Create(Images.Buttons.User, UserButtonPress)),
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                new UIBarButtonItem(ToolbarButton.Create(Images.CommentButton, CommentButtonPress)),
+                new UIBarButtonItem(ToolbarButton.Create(Images.Buttons.Comment, CommentButtonPress)),
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                (_shareButton = new UIBarButtonItem(ToolbarButton.Create(Images.ShareButton, ShareButtonPress))),
+                (_shareButton = new UIBarButtonItem(ToolbarButton.Create(Images.Buttons.Share, ShareButtonPress))),
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
             };
         }
@@ -104,7 +104,7 @@ namespace Gistacular.Controllers
         private void UpdateStar()
         {
             InvokeOnMainThread(() => {
-                _starButton.SetImage(_starred ? Images.StarHighlightedButton : Images.StarButton, UIControlState.Normal);
+                _starButton.SetImage(_starred ? Images.Buttons.StarHighlighted : Images.Buttons.Star, UIControlState.Normal);
                 _starButton.SetNeedsDisplay();
             });
         }
@@ -224,7 +224,7 @@ namespace Gistacular.Controllers
                         Time = thisComment.CreatedAt, 
                         String = thisComment.Body, 
                         Lines = 4, 
-                        Image = Images.Anonymous,
+                        Image = Images.Misc.Anonymous,
                     };
 
                     sse.Name = thisComment.User == null ? "Unknown" : thisComment.User.Login;
@@ -254,7 +254,7 @@ namespace Gistacular.Controllers
                         Lines = 1,
                     };
 
-                    sse.Image = Images.Anonymous;
+                    sse.Image = Images.Misc.Anonymous;
                     sse.ImageUri = new Uri(fork.User.AvatarUrl);
 
                     var id = fork.Url.Substring(fork.Url.LastIndexOf('/') + 1);

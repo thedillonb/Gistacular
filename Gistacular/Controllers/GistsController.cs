@@ -28,7 +28,7 @@ namespace Gistacular.Controllers
                 Time = x.UpdatedAt, 
                 String = str, 
                 Lines = 4, 
-                Image = Images.Anonymous,
+                Image = Images.Misc.Anonymous,
             };
 
             //We prefer the filename, so lets try and get it if it exists

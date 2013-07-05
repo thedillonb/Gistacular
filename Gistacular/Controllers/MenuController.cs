@@ -37,13 +37,13 @@ namespace Gistacular.Controllers
                 var gistController = new CreateGistController();
                 var navController = new UINavigationController(gistController);
                 PresentViewController(navController, true, null);
-            }, Images.NewGist));
+            }, Images.Buttons.NewGist));
 
             var gistMenuSection = new Section() { HeaderView = new MenuSectionView("Gists") };
             root.Add(gistMenuSection);
-            gistMenuSection.Add(new MenuElement("My Gists", () => NavigationController.PushViewController(new MyGistsController(), true), Images.MyGists));
-            gistMenuSection.Add(new MenuElement("Starred", () => NavigationController.PushViewController(new StarredGistsController(), true), Images.Star2));
-            gistMenuSection.Add(new MenuElement("Public", () => NavigationController.PushViewController(new PublicGistsController(), true), Images.Public));
+            gistMenuSection.Add(new MenuElement("My Gists", () => NavigationController.PushViewController(new MyGistsController(), true), Images.Buttons.MyGists));
+            gistMenuSection.Add(new MenuElement("Starred", () => NavigationController.PushViewController(new StarredGistsController(), true), Images.Buttons.Star2));
+            gistMenuSection.Add(new MenuElement("Public", () => NavigationController.PushViewController(new PublicGistsController(), true), Images.Buttons.Public));
 
 //            var labelSection = new Section() { HeaderView = new MenuSectionView("Tags") };
 //            root.Add(labelSection);
@@ -51,12 +51,12 @@ namespace Gistacular.Controllers
 
             var moreSection = new Section() { HeaderView = new MenuSectionView("Info") };
             root.Add(moreSection);
-            moreSection.Add(new MenuElement("About", () => NavigationController.PushViewController(new AboutController(), true), Images.Info));
+            moreSection.Add(new MenuElement("About", () => NavigationController.PushViewController(new AboutController(), true), Images.Buttons.Info));
             moreSection.Add(new MenuElement("Feedback & Support", () => { 
                 var config = UserVoice.UVConfig.Create("http://gistacular.uservoice.com", "lYY6AwnzrNKjHIkiiYbbqA", "9iLse96r8yki4ZKknfHKBlWcbZAH9g8yQWb9fuG4");
                 UserVoice.UserVoice.PresentUserVoiceInterface(this, config);
-            }, Images.Feedback));
-            moreSection.Add(new MenuElement("Logout", Logout, Images.Logout));
+            }, Images.Buttons.Feedback));
+            moreSection.Add(new MenuElement("Logout", Logout, Images.Buttons.Logout));
 		}
 
 
