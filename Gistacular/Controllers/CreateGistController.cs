@@ -11,29 +11,21 @@ namespace Gistacular.Controllers
 {
     public class CreateGistController : BaseDialogViewController
     {
-        private GistModel _editModel;
-        private bool _isEdit;
+        private GistCreateModel _model;
+        private TrueFalseElement _public;
+        public Action Created;
 
-
-        public CreateGistController(GistModel editModel = null)
+        public CreateGistController()
             : base(true)
         {
-            _editModel = editModel;
-            Title = _isEdit ? "Edit Gist" : "Create Gist";
+            Title = "Create Gist";
             Style = UITableViewStyle.Grouped;
 
             NavigationItem.LeftBarButtonItem = new UIBarButtonItem (NavigationButton.Create(Images.Buttons.Cancel, Discard));
             NavigationItem.RightBarButtonItem = new UIBarButtonItem(NavigationButton.Create(Images.Buttons.Save, Save));
-        }
 
-        private new void Delete()
-        {
-            this.DoWork(() => {
-                Application.Client.API.DeleteGist("");
-                InvokeOnMainThread(() => {
-                    DismissViewController(true, null);
-                });
-            });
+            _model = new GistCreateModel() { Public = true };
+            _model.Files = new Dictionary<string, GistCreateModel.File>();
         }
 
         private void Discard()
@@ -43,50 +35,72 @@ namespace Gistacular.Controllers
 
         private void Save()
         {
+            _model.Public = _public.Value;
             this.DoWork(() => {
-
-
+                Application.Client.API.CreateGist(_model);
+                DismissViewController(true, () => {
+                    if (Created != null)
+                        Created();
+                });
             });
         }
 
         private void AddFile()
         {
             var createController = new CreateGistFileController();
+            createController.Save = (name, content) => {
+                if (_model.Files.ContainsKey(name))
+                    throw new InvalidOperationException("A filename by that type already exists");
+                _model.Files.Add(name, new GistCreateModel.File { Content = content });
+            };
             NavigationController.PushViewController(createController, true);
         }
 
-        public override void ViewDidLoad()
+        public override void ViewWillAppear(bool animated)
         {
-            base.ViewDidLoad();
+            base.ViewWillAppear(animated);
 
             var root = new RootElement(Title) { UnevenRows = true };
             var section = new Section();
             root.Add(section);
 
-
-            var desc = new MultilinedElement("Description");
-            desc.Tapped += () =>
-            {
-                var composer = new Composer { Title = "Description", Text = desc.Value, ActionButtonText = "Save" };
-                composer.NewComment(this, () => {
-                    var text = composer.Text;
-                    desc.Value = text;
-                    composer.CloseComposer();
-                    Root.Reload(desc, UITableViewRowAnimation.None);
-                });
-            };
-
+            var desc = new MultilinedElement("Description") { Value = _model.Description };
+            desc.Tapped += ChangeDescription;
             section.Add(desc);
-            section.Add(new TrueFalseElement("Public") { Value = true });
+
+            if (_public == null)
+                _public = new TrueFalseElement("Public"); 
+            _public.Value = _model.Public;
+            section.Add(_public);
 
             var fileSection = new Section();
             root.Add(fileSection);
+
+            foreach (var file in _model.Files.Keys)
+            {
+                var size = System.Text.ASCIIEncoding.UTF8.GetByteCount(_model.Files[file].Content);
+                var el = new StyledElement(file, size + " bytes", UITableViewCellStyle.Subtitle);
+                el.Tapped += () => {
+
+                };
+                fileSection.Add(el);
+            }
+
             fileSection.Add(new StyledElement("Add New File", AddFile));
 
             Root = root;
         }
 
-        
+        private void ChangeDescription()
+        {
+            var composer = new Composer { Title = "Description", Text = _model.Description };
+            composer.NewComment(this, () => {
+                var text = composer.Text;
+                _model.Description = text;
+                composer.CloseComposer();
+            });
+        }
+
         public override Source CreateSizingSource(bool unevenRows)
         {
             return new EditSource(this);
@@ -94,7 +108,7 @@ namespace Gistacular.Controllers
 
         private void Delete(Element element)
         {
-          
+            _model.Files.Remove(element.Caption);
         }
 
         private class EditSource : SizingSource

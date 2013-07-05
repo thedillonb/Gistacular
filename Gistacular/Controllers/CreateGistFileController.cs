@@ -3,142 +3,109 @@ using MonoTouch.Dialog;
 using MonoTouch.UIKit;
 using MonoTouch.Foundation;
 using System.Drawing;
+using Gistacular.Views;
 
 namespace Gistacular.Controllers
 {
-   
-    /// <summary>
-    ///   Composer is a singleton that is shared through the lifetime of the app,
-    ///   the public methods in this class reset the values of the composer on 
-    ///   each invocation.
-    /// </summary>
-    public class CreateGistFileController : UIViewController
+    public class CreateGistFileController : BaseDialogViewController
     {
-        readonly ComposerView _composerView;
-        UIViewController _previousController;
-        public Action ReturnAction;
+        CustomEntryElement _filename;
+        TextEntryElement _content;
+        public Action<string, string> Save;
 
-        private class ComposerView : UIWebView 
+
+        public CreateGistFileController()
+            : base(true)
         {
-            const UIBarButtonItemStyle Style = UIBarButtonItemStyle.Bordered;
-
-            public ComposerView (RectangleF bounds, CreateGistFileController composer) : base (bounds)
-            {
-            }
-
-            internal void Reset (string text)
-            {
-            }
-
-            public override void LayoutSubviews ()
-            {
-                Resize (Bounds);
-            }
-
-            void Resize (RectangleF bounds)
-            {
-            }
-
-            public override UIView InputAccessoryView
-            {
-                get
+            Title = "New File";
+            Style = UITableViewStyle.Plain;
+            NavigationItem.RightBarButtonItem = new UIBarButtonItem(NavigationButton.Create(Images.Buttons.Save, () => {
+                try
                 {
-                    return null;
+                    if (Save != null)
+                        Save(_filename.Value, string.Empty);
+                    NavigationController.PopViewControllerAnimated(true);
                 }
-            }
-
-            public string Text { 
-                get {
-                    return String.Empty;
-                }
-                set {
-
-                }
-            }
-        }
-
-        public CreateGistFileController () : base (null, null)
-        {
-            Title = "New Comment";
-
-            // Composer
-            _composerView = new ComposerView (ComputeComposerSize (RectangleF.Empty), this);
-            _composerView.LoadHtmlString(System.IO.File.ReadAllText("CodeEditor/index.html", System.Text.Encoding.UTF8), null);
-
-            // Add the views
-            NSNotificationCenter.DefaultCenter.AddObserver (new NSString("UIKeyboardWillShowNotification"), KeyboardWillShow);
-
-            View.AddSubview (_composerView);
-        }
-
-        public string Text
-        {
-            get { return _composerView.Text; }
-            set { _composerView.Text = value; }
-        }
-
-        public void CloseComposer ()
-        {
-            _previousController.DismissModalViewControllerAnimated (true);
-        }
-
-        void PostCallback (object sender, EventArgs a)
-        {
-            if (ReturnAction != null)
-                ReturnAction();
-        }
-
-        void KeyboardWillShow (NSNotification notification)
-        {
-            var nsValue = notification.UserInfo.ObjectForKey (UIKeyboard.BoundsUserInfoKey) as NSValue;
-            if (nsValue == null) return;
-            var kbdBounds = nsValue.RectangleFValue;
-//            _composerView.Frame = ComputeComposerSize (kbdBounds);
-        }
-
-        RectangleF ComputeComposerSize (RectangleF kbdBounds)
-        {
-            var view = View.Bounds;
-            return new RectangleF (0, 0, view.Width, view.Height-kbdBounds.Height);
-        }
-
-        public override void ViewWillLayoutSubviews()
-        {
-            base.ViewWillLayoutSubviews();
-        }
-
-        public override bool ShouldAutorotateToInterfaceOrientation(UIInterfaceOrientation toInterfaceOrientation)
-        {
-            return true;
-        }
-
-        public override void ViewWillAppear (bool animated)
-        {
-            base.ViewWillAppear (animated);
-            _composerView.BecomeFirstResponder();
-
-            this.View.BackgroundColor = UIColor.White;
-            _composerView.BackgroundColor = UIColor.White;
-
-
-            foreach (var view in _composerView.Subviews)
-            {
-                if (view is UIScrollView)
+                catch (Exception e)
                 {
-                    foreach (var shadowView in view.Subviews)
-                    {
-                        if (shadowView is UIImageView)
-                            shadowView.Hidden = true;
-                    }
+                    MonoTouch.Utilities.ShowAlert("Error", e.Message);
+                    return;
                 }
+            }));
+        }
+
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            var root = new RootElement(Title) { UnevenRows = true };
+            var sec = new Section();
+            root.Add(sec);
+
+            sec.Add((_filename = new CustomEntryElement(String.Empty)));
+            sec.Add((_content = new TextEntryElement(String.Empty)));
+            Root = root;
+        }
+
+        private class TextEntryElement : Element, IElementSizing
+        {
+
+            UITextView _text;
+
+
+            public TextEntryElement(string content)
+                : base(String.Empty)
+            {
+                _text = new UITextView() { ScrollEnabled = false };
+                _text.AutoresizingMask = UIViewAutoresizing.All;
+                _text.ContentInset = new UIEdgeInsets(4, 4, 4, 4);
+                _text.AutocorrectionType = UITextAutocorrectionType.No;
+                _text.AutocapitalizationType = UITextAutocapitalizationType.None;
+                _text.Font = UIFont.SystemFontOfSize(12f);
+                _text.Changed += HandleChanged;
+            }
+
+            void HandleChanged (object sender, EventArgs e)
+            {
+                GetImmediateRootElement().Reload(this, UITableViewRowAnimation.None);
+                _text.BecomeFirstResponder();
+            }
+
+            public override UITableViewCell GetCell(UITableView tv)
+            {
+                var cell = base.GetCell(tv);
+                _text.Frame = cell.Bounds;
+                cell.AddSubview(_text);
+                return cell;
+            }
+
+            public float GetHeight(UITableView tableView, NSIndexPath indexPath)
+            {
+                var height = _text.Text.MonoStringHeight(UIFont.SystemFontOfSize(12f), tableView.Bounds.Width);
+                Console.WriteLine("Height: " + height);
+                return 8f + height;
             }
         }
 
-        public void NewComment (UIViewController parent, Action action)
+
+        private class CustomEntryElement : EntryElement
         {
-            ReturnAction = action;
-            _previousController = parent;
-            parent.PresentViewController(this, true, null);
+            public CustomEntryElement(string value)
+                : base("Name", String.Empty, value)
+            {
+                AutocorrectionType = UITextAutocorrectionType.No;
+                AutocapitalizationType = UITextAutocapitalizationType.None;
+                TitleFont = UIFont.BoldSystemFontOfSize(14f);
+                TitleColor = UIColor.FromRGB(41, 41, 41);
+            }
+
+            public override UITableViewCell GetCell(UITableView tv)
+            {
+                var cell = base.GetCell(tv);
+                cell.ContentView.BackgroundColor = UIColor.White;
+                foreach (var view in cell.ContentView.Subviews)
+                    view.BackgroundColor = cell.ContentView.BackgroundColor;
+                return cell;
+            }
         }
     }
 }
