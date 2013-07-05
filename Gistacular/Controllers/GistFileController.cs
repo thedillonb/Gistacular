@@ -60,7 +60,6 @@ namespace Gistacular.Controllers
         bool _loaded = false;
 
         public FileSourceController()
-            : base(false)
         {
             Web.DataDetectorTypes = UIDataDetectorType.None;
             Title = "Source";
@@ -85,7 +84,7 @@ namespace Gistacular.Controllers
             base.OnLoadError(sender, e);
 
             //Can't load this!
-            ErrorView.Show(this.View, "Unable to display this type of file.");
+            MonoTouch.Utilities.ShowAlert("Error", "Unable to display this type of file.");
         }
 
         protected abstract void Request();

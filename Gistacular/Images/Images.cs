@@ -39,6 +39,7 @@ namespace Gistacular
 
         public static UIImage NewGist = UIImage.FromBundle("/Images/new_gist");
         public static UIImage Feedback = UIImage.FromBundle("/Images/feedback");
+        public static UIImage Info = UIImage.FromBundle("/Images/info");
         public static UIImage Logout = UIImage.FromBundle("/Images/logout");
         public static UIImage Settings = UIImage.FromBundle("/Images/settings");
         public static UIImage Star2 = UIImage.FromBundle("/Images/star2");

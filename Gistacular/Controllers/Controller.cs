@@ -15,7 +15,6 @@ namespace Gistacular.Controllers
         public T Model { get; set; }
         public bool Loaded { get; private set; }
         public bool EnableFilter { get; set; }
-        protected ErrorView CurrentError;
         private UISearchBar _searchBar;
 
         /// <summary>
@@ -45,12 +44,6 @@ namespace Gistacular.Controllers
 
         public void Refresh(bool force = false)
         {
-            InvokeOnMainThread(delegate {
-                if (CurrentError != null)
-                    CurrentError.RemoveFromSuperview();
-                CurrentError = null;
-            });
-
             if (Model != null && !force)
             {
                 try

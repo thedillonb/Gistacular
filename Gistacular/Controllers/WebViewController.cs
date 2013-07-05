@@ -7,7 +7,6 @@ namespace Gistacular.Controllers
     public class WebViewController : UIViewController
     {
         public UIWebView Web { get; private set; }
-        private readonly bool _navigationToolbar;
 
         protected virtual void GoBack()
         {
@@ -23,20 +22,13 @@ namespace Gistacular.Controllers
         {
             Web.GoForward();
         }
-         
-        public WebViewController()
-            : this(true)
-        {
-        }
 
-        public WebViewController(bool navigationToolbar)
+        public WebViewController()
         {
             Web = new UIWebView {ScalesPageToFit = true};
             Web.LoadFinished += OnLoadFinished;
             Web.LoadStarted += OnLoadStarted;
             Web.LoadError += OnLoadError;
-
-            _navigationToolbar = navigationToolbar;
 
             NavigationItem.LeftBarButtonItem = new UIBarButtonItem(NavigationButton.Create(Images.BackButton, () => NavigationController.PopViewControllerAnimated(true)));
         }
@@ -56,13 +48,6 @@ namespace Gistacular.Controllers
             MonoTouch.Utilities.PopNetworkActive();
         }
         
-        public override void ViewWillDisappear(bool animated)
-        {
-            base.ViewWillDisappear(animated);
-            if (_navigationToolbar)
-                NavigationController.SetToolbarHidden(true, animated);
-        }
-        
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
@@ -77,13 +62,24 @@ namespace Gistacular.Controllers
         
         public override void ViewWillAppear(bool animated)
         {
-            if (_navigationToolbar)
-                NavigationController.SetToolbarHidden(false, animated);
             base.ViewWillAppear(animated);
             var bounds = View.Bounds;
-            if (_navigationToolbar)
-                bounds.Height -= NavigationController.Toolbar.Frame.Height;
             Web.Frame = bounds;
+
+            this.View.BackgroundColor = UIColor.White;
+            this.Web.BackgroundColor = UIColor.White;
+
+            foreach (var view in Web.Subviews)
+            {
+                if (view is UIScrollView)
+                {
+                    foreach (var shadowView in view.Subviews)
+                    {
+                        if (shadowView is UIImageView)
+                            shadowView.Hidden = true;
+                    }
+                }
+            }
         }
         
         public override void DidRotate(UIInterfaceOrientation fromInterfaceOrientation)

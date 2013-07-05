@@ -85,6 +85,52 @@ namespace Gistacular.Controllers
 
             Root = root;
         }
+
+        
+        public override Source CreateSizingSource(bool unevenRows)
+        {
+            return new EditSource(this);
+        }
+
+        private void Delete(Element element)
+        {
+          
+        }
+
+        private class EditSource : SizingSource
+        {
+            private readonly CreateGistController _parent;
+            public EditSource(CreateGistController dvc) 
+                : base (dvc)
+            {
+                _parent = dvc;
+            }
+
+            public override bool CanEditRow(UITableView tableView, MonoTouch.Foundation.NSIndexPath indexPath)
+            {
+                return (indexPath.Section == 1 && indexPath.Row != (_parent.Root[0].Count - 1));
+            }
+
+            public override UITableViewCellEditingStyle EditingStyleForRow(UITableView tableView, MonoTouch.Foundation.NSIndexPath indexPath)
+            {
+                if (indexPath.Section == 1 && indexPath.Row != (_parent.Root[0].Count - 1))
+                    return UITableViewCellEditingStyle.Delete;
+                return UITableViewCellEditingStyle.None;
+            }
+
+            public override void CommitEditingStyle(UITableView tableView, UITableViewCellEditingStyle editingStyle, MonoTouch.Foundation.NSIndexPath indexPath)
+            {
+                switch (editingStyle)
+                {
+                    case UITableViewCellEditingStyle.Delete:
+                        var section = _parent.Root[indexPath.Section];
+                        var element = section[indexPath.Row];
+                        _parent.Delete(element);
+                        section.Remove(element);
+                        break;
+                }
+            }
+        }
     }
 }
 

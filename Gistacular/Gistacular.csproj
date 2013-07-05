@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -108,7 +108,6 @@
     <Folder Include="Utilities\" />
     <Folder Include="Views\" />
     <Folder Include="SourceBrowser\" />
-    <Folder Include="CodeEditor\" />
     <Folder Include="Images\icon\" />
   </ItemGroup>
   <ItemGroup>
@@ -135,7 +134,6 @@
     <Compile Include="Elements\NoItemsElement.cs" />
     <Compile Include="Utilities\ControllerExtensions.cs" />
     <Compile Include="Utilities\MbProgressHud.cs" />
-    <Compile Include="Views\ErrorView.cs" />
     <Compile Include="Elements\CustomElement.cs" />
     <Compile Include="Elements\NameTimeStringElement.cs" />
     <Compile Include="Utilities\StringExtensions.cs" />
@@ -144,7 +142,6 @@
     <Compile Include="Controllers\ListController.cs" />
     <Compile Include="Elements\PaginateElement.cs" />
     <Compile Include="Controllers\MyGistsController.cs" />
-    <Compile Include="Controllers\SettingsController.cs" />
     <Compile Include="Controllers\GitHubLoginController.cs" />
     <Compile Include="Controllers\GitHubLoginController.designer.cs" />
     <Compile Include="Views\MenuSectionView.cs" />
@@ -167,7 +164,9 @@
     <Compile Include="Controllers\Composer.cs" />
     <Compile Include="Elements\MultilinedElement.cs" />
     <Compile Include="Elements\TrueFalseElement.cs" />
+    <Compile Include="Controllers\AboutController.cs" />
   </ItemGroup>
+  <Import Project="$(ProgramFiles)\MSBuild\MonoTouch\Novell.MonoTouch.Common.targets" Condition="'$(windir)' != '' " />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <ProjectReference Include="..\GitHubSharp\GitHubSharp\GitHubSharp.csproj">
@@ -273,6 +272,8 @@
     <BundleResource Include="Images\public%402x.png" />
     <BundleResource Include="Images\cancel.png" />
     <BundleResource Include="Images\cancel%402x.png" />
+    <BundleResource Include="Images\info.png" />
+    <BundleResource Include="Images\info%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Controllers\GitHubLoginController.xib" />
@@ -311,7 +312,6 @@
     <Content Include="SourceBrowser\prettify.css" />
     <Content Include="SourceBrowser\prettify.js" />
     <Content Include="SourceBrowser\run_prettify.js" />
-    <Content Include="CodeEditor\index.html" />
   </ItemGroup>
   <ProjectExtensions>
     <MonoDevelop>

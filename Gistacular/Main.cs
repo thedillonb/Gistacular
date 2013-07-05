@@ -15,7 +15,7 @@ namespace Gistacular
 	public partial class AppDelegate : UIApplicationDelegate
 	{
 		// class-level declarations
-		UIWindow _window;
+        UIWindow _window;
 		SlideoutNavigationController _nav;
 
 		// This is the main entry point of the application.
@@ -57,59 +57,12 @@ namespace Gistacular
         {
             //Set the status bar
             UIApplication.SharedApplication.SetStatusBarStyle(UIStatusBarStyle.BlackOpaque, false);
-//            
-//            //Set the theming
-//            UINavigationBar.Appearance.SetBackgroundImage(Images.Titlebar.CreateResizableImage(new UIEdgeInsets(0, 0, 1, 0)), UIBarMetrics.Default);
-//            
-//            UIBarButtonItem.Appearance.SetBackgroundImage(Images.BarButton.CreateResizableImage(new UIEdgeInsets(8, 7, 8, 7)), UIControlState.Normal, UIBarMetrics.Default);
-//            UISegmentedControl.Appearance.SetBackgroundImage(Images.BarButton.CreateResizableImage(new UIEdgeInsets(8, 7, 8, 7)), UIControlState.Normal, UIBarMetrics.Default);
-//            
-//            UIBarButtonItem.Appearance.SetBackgroundImage(Images.BarButtonLandscape.CreateResizableImage(new UIEdgeInsets(8, 7, 8, 7)), UIControlState.Normal, UIBarMetrics.LandscapePhone);
-//            UISegmentedControl.Appearance.SetBackgroundImage(Images.BarButtonLandscape.CreateResizableImage(new UIEdgeInsets(8, 7, 8, 7)), UIControlState.Normal, UIBarMetrics.LandscapePhone);
-//            
-//            //BackButton
-//            UIBarButtonItem.Appearance.SetBackButtonBackgroundImage(Images.BackButton.CreateResizableImage(new UIEdgeInsets(0, 14, 0, 5)), UIControlState.Normal, UIBarMetrics.Default);
-//            
-//            UISegmentedControl.Appearance.SetDividerImage(Images.Divider, UIControlState.Normal, UIControlState.Normal, UIBarMetrics.Default);
-//            
             UIToolbar.Appearance.SetBackgroundImage(Images.Toolbar.CreateResizableImage(new UIEdgeInsets(0, 0, 0, 0)), UIToolbarPosition.Bottom, UIBarMetrics.Default);
             
             var textAttrs = new UITextAttributes { TextColor = UIColor.White, TextShadowColor = UIColor.FromRGB(40, 40, 40), TextShadowOffset = new UIOffset(0, 1) };
             UINavigationBar.Appearance.SetTitleTextAttributes(textAttrs);
 
-//            
-//            SearchFilterBar.ButtonBackground = Images.BarButton.CreateResizableImage(new UIEdgeInsets(0, 6, 0, 6));
-//            SearchFilterBar.FilterImage = Images.Filter;
-//            
-//            DropbarView.Image = UIImage.FromFile("Images/Controls/Dropbar.png");
-//            WatermarkView.Image = Images.Background;
-//            HeaderView.Gradient = Images.CellGradient;
-//            StyledElement.BgColor = UIColor.FromPatternImage(Images.TableCell);
-//            ErrorView.AlertImage = UIImage.FromFile("Images/warning.png");
-//            UserElement.Default = Images.Anonymous;
-//            NewsFeedElement.DefaultImage = Images.Anonymous;
-//            NewsFeedElement.LinkColor = UIColor.FromRGB(0, 64, 128);
-//            NewsFeedElement.LinkFont = UIFont.BoldSystemFontOfSize(12f);
-//            TableViewSectionView.BackgroundImage = Images.Searchbar;
-//
-//            
-//            //Resize the back button only on the iPhone
-//            if (UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Phone)
-//            {
-//                UIBarButtonItem.Appearance.SetBackButtonBackgroundImage(Images.BackButtonLandscape.CreateResizableImage(new UIEdgeInsets(0, 14, 0, 6)), UIControlState.Normal, UIBarMetrics.LandscapePhone);
-//            }
-
-
-            //Set the theming
-//            UIBarButtonItem.Appearance.SetBackButtonBackgroundImage(Images.Controls.BackButton.CreateResizableImage(new UIEdgeInsets(0, 16, 0, 10)), UIControlState.Normal, UIBarMetrics.Default);
-//            UIBarButtonItem.AppearanceWhenContainedIn(typeof(UIPopoverController)).SetBackButtonBackgroundImage(null, UIControlState.Normal, UIBarMetrics.Default);
-//
-//            UIBarButtonItem.Appearance.SetBackgroundImage(Images.Controls.Button, UIControlState.Normal, UIBarMetrics.Default);
-//            UIBarButtonItem.AppearanceWhenContainedIn(typeof(UIPopoverController)).SetBackgroundImage(null, UIControlState.Normal, UIBarMetrics.Default);
-//
-
             UISearchBar.Appearance.BackgroundImage = Images.Searchbar.CreateResizableImage(new UIEdgeInsets(0, 1f, 0, 1f));
-
             UINavigationBar.Appearance.SetBackgroundImage(Images.TopNavbar.CreateResizableImage(new UIEdgeInsets(0, 0, 0, 0)), UIBarMetrics.Default);
             UINavigationBar.AppearanceWhenContainedIn(typeof(UIPopoverController)).SetBackgroundImage (null, UIBarMetrics.Default);
         }
@@ -118,7 +71,7 @@ namespace Gistacular
         /// <summary>
         /// Processes the accounts.
         /// </summary>
-        private void ProcessAccounts()
+        public void ProcessAccounts()
         {
             //There's no accounts...
             if (GetDefaultAccount() == null)
@@ -134,12 +87,14 @@ namespace Gistacular
             }
         }
 
+
+
         /// <summary>
         /// Gets the default account. If there is not one assigned it will pick the first in the account list.
         /// If there isn't one, it'll just return null.
         /// </summary>
         /// <returns>The default account.</returns>
-        private Account GetDefaultAccount()
+        private static Account GetDefaultAccount()
         {
             var defaultAccount = Application.Accounts.GetDefault();
             if (defaultAccount == null)
@@ -150,15 +105,13 @@ namespace Gistacular
             return defaultAccount;
         }
 
-        private void ShowMainWindow()
+        public void ShowMainWindow()
         {
             var defaultAccount = GetDefaultAccount();
             Application.SetUser(defaultAccount);
 
             _nav = new SlideoutNavigationController();
-            //_nav.SetMenuNavigationBackgroundImage(Images.TitlebarDark, UIBarMetrics.Default);
             _window.RootViewController = _nav;
-            //Select the default view
             _nav.SelectView(new MyGistsController());
         }
 

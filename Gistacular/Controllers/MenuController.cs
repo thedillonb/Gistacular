@@ -49,21 +49,35 @@ namespace Gistacular.Controllers
 //            root.Add(labelSection);
 //            labelSection.Add(new MenuElement("Add New Tag", () => { }, null));
 
-            var moreSection = new Section() { HeaderView = new MenuSectionView("More") };
+            var moreSection = new Section() { HeaderView = new MenuSectionView("Info") };
             root.Add(moreSection);
-            moreSection.Add(new MenuElement("Settings", () => { }, Images.Settings));
+            moreSection.Add(new MenuElement("About", () => NavigationController.PushViewController(new AboutController(), true), Images.Info));
             moreSection.Add(new MenuElement("Feedback & Support", () => { 
                 var config = UserVoice.UVConfig.Create("http://gistacular.uservoice.com", "lYY6AwnzrNKjHIkiiYbbqA", "9iLse96r8yki4ZKknfHKBlWcbZAH9g8yQWb9fuG4");
                 UserVoice.UserVoice.PresentUserVoiceInterface(this, config);
             }, Images.Feedback));
-            moreSection.Add(new MenuElement("Logout", () => { }, Images.Logout));
+            moreSection.Add(new MenuElement("Logout", Logout, Images.Logout));
 		}
+
+
+        private void Logout()
+        {
+            Application.Account.Delete();
+            Application.SetUser(null);
+
+            var login = new GitHubLoginController();
+            login.LoginComplete = (a) => {
+                Application.SetUser(a);
+                login.DismissViewController(true, () => {
+                    NavigationController.PushViewController(new MyGistsController(), true);
+                });
+            };
+            PresentViewController(new UINavigationController(login), true, null);
+        }
 
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-
-            NavigationItem.LeftBarButtonItem = new UIBarButtonItem(new ProfileView(new System.Uri(Application.Account.AvatarUrl)));
 
 			//Add some nice looking colors and effects
             TableView.SeparatorColor = UIColor.FromRGB(14, 14, 14);
@@ -78,6 +92,7 @@ namespace Gistacular.Controllers
         {
             base.ViewWillAppear(animated);
             _title.Text = Application.Account.Username;
+            NavigationItem.LeftBarButtonItem = new UIBarButtonItem(new ProfileView(new System.Uri(Application.Account.AvatarUrl)));
 
 			var root = new RootElement(Application.Account.Username);
             Title = root.Caption;

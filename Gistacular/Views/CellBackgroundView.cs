@@ -9,8 +9,6 @@ namespace Gistacular.Views
         public static readonly CGGradient BottomGradient;
         public static readonly CGGradient TopGradient;
 
-        public readonly static CellBackgroundView Instance = new CellBackgroundView();
-
         static CellBackgroundView ()
         {
             using (var rgb = CGColorSpace.CreateDeviceRGB()){

@@ -106,7 +106,7 @@ namespace Gistacular.Controllers
 
 				if (loggedInAccount == null)
                 {
-                    Utilities.ShowAlert("Unable to Authenticate", "Unable to login as user " + username + ". Please check your credentials and try again. Remember, credentials are case sensitive!");
+                    Utilities.ShowAlert("Unable to Authenticate", "Unable to login as user " + username + ". Please check your credentials and try again.");
                     return;
                 }
 
