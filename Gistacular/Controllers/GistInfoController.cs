@@ -21,7 +21,7 @@ namespace Gistacular.Controllers
 
         public string Id { get; private set; }
 
-        public GistInfoController(string id, bool owned = false)
+        public GistInfoController(string id)
             : base(true, true)
         {
             Id = id;
@@ -30,30 +30,7 @@ namespace Gistacular.Controllers
 
             _tabButtons = new TabButtonView(new RectangleF(0, 0, this.TableView.Bounds.Width, 42), "Files", "Comments", "Forks");
             _tabButtons.SegmentChanged = SegmentedChanged;
-
-            if (owned)
-            {
-                NavigationItem.RightBarButtonItem = new UIBarButtonItem(NavigationButton.Create(Images.Buttons.Edit, () => {
-                }));
-            }
-            else
-            {
-                NavigationItem.RightBarButtonItem = new UIBarButtonItem(NavigationButton.Create(Images.Buttons.Fork, () => {
-                    NavigationItem.RightBarButtonItem.Enabled = false;
-
-                    this.DoWork(() => {
-                        var forkedGist = Application.Client.API.ForkGist(id);
-                        InvokeOnMainThread(delegate {
-                            NavigationController.PushViewController(new GistInfoController(forkedGist.Data.Id, true), true);
-                        });
-                    }, null, () => {
-                        NavigationItem.RightBarButtonItem.Enabled = true;
-                    });
-                }));
-            }
-
-
-
+           
             //The bottom bar
             ToolbarItems = new []
             {
@@ -67,6 +44,37 @@ namespace Gistacular.Controllers
                 (_shareButton = new UIBarButtonItem(ToolbarButton.Create(Images.Buttons.Share, ShareButtonPress))),
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
             };
+        }
+
+        private void UpdateOwned()
+        {
+            var owned = false;
+            if (Model != null && Model.User != null)
+            {
+                if (Model.User.Login.ToLower().Equals(Application.Account.Username.ToLower()))
+                    owned = true;
+            }
+            
+            if (owned)
+            {
+                NavigationItem.RightBarButtonItem = new UIBarButtonItem(NavigationButton.Create(Images.Buttons.Edit, () => {
+                }));
+            }
+            else
+            {
+                NavigationItem.RightBarButtonItem = new UIBarButtonItem(NavigationButton.Create(Images.Buttons.Fork, () => {
+                    NavigationItem.RightBarButtonItem.Enabled = false;
+
+                    this.DoWork(() => {
+                        var forkedGist = Application.Client.API.ForkGist(Id);
+                        InvokeOnMainThread(delegate {
+                            NavigationController.PushViewController(new GistInfoController(forkedGist.Data.Id), true);
+                        });
+                    }, null, () => {
+                        NavigationItem.RightBarButtonItem.Enabled = true;
+                    });
+                }));
+            }
         }
 
         private void UserButtonPress()
@@ -317,6 +325,7 @@ namespace Gistacular.Controllers
             });
 
             UpdateStar();
+            UpdateOwned();
         }
 
         protected override GistModel OnUpdate(bool forced)

@@ -19,7 +19,7 @@ namespace Gistacular.Controllers
         protected override Element CreateElement(GistModel x)
         {
             var element = CreateGistElement(x);
-            element.Tapped += () => NavigationController.PushViewController(new GistInfoController(x.Id, true) { Model = x }, true);
+            element.Tapped += () => NavigationController.PushViewController(new GistInfoController(x.Id) { Model = x }, true);
             return element;
         }
 
