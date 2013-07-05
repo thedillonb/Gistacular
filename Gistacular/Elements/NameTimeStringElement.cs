@@ -21,6 +21,7 @@ namespace Gistacular.Elements
         public DateTime Time { get; set; }
         public string String { get; set; }
         public Uri ImageUri { get; set; }
+        public object Tag { get; set; }
 
         public int Lines { get; set; }
         public UIImage Image { get; set; }

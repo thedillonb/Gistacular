@@ -137,7 +137,7 @@ namespace Gistacular.Controllers
 
             public override bool CanEditRow(UITableView tableView, MonoTouch.Foundation.NSIndexPath indexPath)
             {
-                return (indexPath.Section == 1 && indexPath.Row != (_parent.Root[0].Count - 1));
+                return (indexPath.Section == 1 && indexPath.Row != (_parent.Root[1].Count - 1));
             }
 
             public override UITableViewCellEditingStyle EditingStyleForRow(UITableView tableView, MonoTouch.Foundation.NSIndexPath indexPath)

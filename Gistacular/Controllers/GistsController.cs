@@ -29,6 +29,7 @@ namespace Gistacular.Controllers
                 String = str, 
                 Lines = 4, 
                 Image = Images.Misc.Anonymous,
+                Tag = x,
             };
 
             //We prefer the filename, so lets try and get it if it exists
