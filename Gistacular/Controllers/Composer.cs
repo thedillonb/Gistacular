@@ -114,8 +114,6 @@ namespace Gistacular.Controllers
 			_composerView = new ComposerView (ComputeComposerSize (RectangleF.Empty), this);
 			
 			// Add the views
-			NSNotificationCenter.DefaultCenter.AddObserver (new NSString("UIKeyboardWillShowNotification"), KeyboardWillShow);
-
 			View.AddSubview (_composerView);
 			View.AddSubview (_navigationBar);
 		}
@@ -176,8 +174,15 @@ namespace Gistacular.Controllers
 		public override void ViewWillAppear (bool animated)
 		{
 			base.ViewWillAppear (animated);
+            NSNotificationCenter.DefaultCenter.AddObserver (new NSString("UIKeyboardWillShowNotification"), KeyboardWillShow);
 			_composerView.textView.BecomeFirstResponder ();
 		}
+
+        public override void ViewWillDisappear(bool animated)
+        {
+            base.ViewWillDisappear(animated);
+            NSNotificationCenter.DefaultCenter.RemoveObserver(this);
+        }
 		
 		public void NewComment (UIViewController parent, Action action)
 		{

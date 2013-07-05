@@ -35,6 +35,9 @@ namespace Gistacular.Controllers
             root.Add(addGistSection);
             addGistSection.Add(new MenuElement("New Gist", () => {
                 var gistController = new CreateGistController();
+                gistController.Created = (id) => {
+                    NavigationController.PushViewController(new GistInfoController(id, true), true);
+                };
                 var navController = new UINavigationController(gistController);
                 PresentViewController(navController, true, null);
             }, Images.Buttons.NewGist));

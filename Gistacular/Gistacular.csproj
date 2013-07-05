@@ -154,7 +154,6 @@
     <Compile Include="Controllers\GistInfoController.cs" />
     <Compile Include="Elements\SubcaptionElement.cs" />
     <Compile Include="Views\TabButtonView.cs" />
-    <Compile Include="Controllers\CreateGistFileController.cs" />
     <Compile Include="Controllers\PublicGistsController.cs" />
     <Compile Include="Views\ProfileView.cs" />
     <Compile Include="Views\GistDetailViewCell.cs" />
@@ -168,6 +167,10 @@
     <Compile Include="Elements\MultilinedElement.cs" />
     <Compile Include="Elements\TrueFalseElement.cs" />
     <Compile Include="Controllers\AboutController.cs" />
+    <Compile Include="Controllers\ModifyGistFileController.cs" />
+    <Compile Include="Controllers\ModifyGistFileController.designer.cs">
+      <DependentUpon>ModifyGistFileController.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <Import Project="$(ProgramFiles)\MSBuild\MonoTouch\Novell.MonoTouch.Common.targets" Condition="'$(windir)' != '' " />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
@@ -275,6 +278,7 @@
   <ItemGroup>
     <InterfaceDefinition Include="Controllers\GitHubLoginController.xib" />
     <InterfaceDefinition Include="Views\GistDetailViewCell.xib" />
+    <InterfaceDefinition Include="Controllers\ModifyGistFileController.xib" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SourceBrowser\index.html" />

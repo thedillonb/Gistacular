@@ -13,7 +13,7 @@ namespace Gistacular.Controllers
     {
         private GistCreateModel _model;
         private TrueFalseElement _public;
-        public Action Created;
+        public Action<string> Created;
 
         public CreateGistController()
             : base(true)
@@ -37,17 +37,19 @@ namespace Gistacular.Controllers
         {
             _model.Public = _public.Value;
             this.DoWork(() => {
-                Application.Client.API.CreateGist(_model);
-                DismissViewController(true, () => {
-                    if (Created != null)
-                        Created();
+                var newGist = Application.Client.API.CreateGist(_model);
+                InvokeOnMainThread(() => {
+                    DismissViewController(true, () => {
+                        if (Created != null)
+                            Created(newGist.Data.Id);
+                    });
                 });
             });
         }
 
         private void AddFile()
         {
-            var createController = new CreateGistFileController();
+            var createController = new ModifyGistFileController();
             createController.Save = (name, content) => {
                 if (_model.Files.ContainsKey(name))
                     throw new InvalidOperationException("A filename by that type already exists");
@@ -78,10 +80,23 @@ namespace Gistacular.Controllers
 
             foreach (var file in _model.Files.Keys)
             {
+                var key = file;
                 var size = System.Text.ASCIIEncoding.UTF8.GetByteCount(_model.Files[file].Content);
-                var el = new StyledElement(file, size + " bytes", UITableViewCellStyle.Subtitle);
+                var el = new StyledElement(file, size + " bytes", UITableViewCellStyle.Subtitle) { Accessory = UITableViewCellAccessory.DisclosureIndicator };
                 el.Tapped += () => {
+                    var createController = new ModifyGistFileController(key, _model.Files[key].Content);
+                    createController.Save = (name, content) => {
 
+                        //If different name & exists somewhere else
+                        if (!name.Equals(key) && _model.Files.ContainsKey(name))
+                            throw new InvalidOperationException("A filename by that type already exists");
+
+                        //Remove old
+                        _model.Files.Remove(key);
+                        _model.Files.Add(name, new GistCreateModel.File { Content = content });
+                    };
+
+                    NavigationController.PushViewController(createController, true);
                 };
                 fileSection.Add(el);
             }
