@@ -6,27 +6,33 @@ using Gistacular.Views;
 using MonoTouch.UIKit;
 using Gistacular.Elements;
 using System.Drawing;
+using System.Linq;
 
 namespace Gistacular.Controllers
 {
-    public class CreateGistController : BaseDialogViewController
+    public class EditGistController : BaseDialogViewController
     {
-        protected GistCreateModel _model;
-        protected TrueFalseElement _public;
+        private GistEditModel _model;
         public Action<string> Created;
-        protected bool _publicEditable = true;
+        private GistModel _originalGist;
 
-        public CreateGistController()
+        public EditGistController(GistModel gist)
             : base(true)
         {
-            Title = "Create Gist";
+            Title = "Edit Gist";
             Style = UITableViewStyle.Grouped;
+            _originalGist = gist;
 
             NavigationItem.LeftBarButtonItem = new UIBarButtonItem (NavigationButton.Create(Images.Buttons.Cancel, Discard));
             NavigationItem.RightBarButtonItem = new UIBarButtonItem(NavigationButton.Create(Images.Buttons.Save, Save));
 
-            _model = new GistCreateModel() { Public = true };
-            _model.Files = new Dictionary<string, GistCreateModel.File>();
+            _model = new GistEditModel();
+            _model.Description = gist.Description;
+            _model.Files = new Dictionary<string, GistEditModel.File>();
+
+            if (gist.Files != null)
+                foreach (var f in gist.Files)
+                    _model.Files.Add(f.Key, new GistEditModel.File() { Content = f.Value.Content });
         }
 
         private void Discard()
@@ -36,16 +42,14 @@ namespace Gistacular.Controllers
 
         protected virtual void Save()
         {
-            if (_model.Files.Count == 0)
+            if (_model.Files.Where(x => x.Value != null).Count() == 0)
             {
-                MonoTouch.Utilities.ShowAlert("No Files", "You cannot create a Gist without atleast one file");
+                MonoTouch.Utilities.ShowAlert("No Files", "You cannot modify a Gist without atleast one file");
                 return;
             }
 
-
-            _model.Public = _public.Value;
             this.DoWork(() => {
-                var newGist = Application.Client.API.CreateGist(_model);
+                var newGist = Application.Client.API.EditGist(_originalGist.Id, _model);
                 InvokeOnMainThread(() => {
                     DismissViewController(true, () => {
                         if (Created != null)
@@ -55,26 +59,42 @@ namespace Gistacular.Controllers
             });
         }
 
+        private bool IsDuplicateName(string name)
+        {
+            if (_model.Files.Where(x => x.Key.Equals(name) && x.Value != null).Count() > 0)
+                return true;
+            return _model.Files.Where(x => {
+                if (x.Value != null)
+                    return name.Equals(x.Value.Filename);
+                return false;
+            }).Count() > 0;
+        }
+
         int _gistFileCounter = 0;
+        private string GenerateName()
+        {
+            var name = string.Empty;
+            //Keep trying until we get a valid filename
+            while (true)
+            {
+                name = "gistfile" + (++_gistFileCounter) + ".txt";
+                if (IsDuplicateName(name))
+                    continue;
+                break;
+            }
+            return name;
+        }
+
         private void AddFile()
         {
             var createController = new ModifyGistFileController();
             createController.Save = (name, content) => {
                 if (string.IsNullOrEmpty(name))
-                {
-                    //Keep trying until we get a valid filename
-                    while (true)
-                    {
-                        name = "gistfile" + (++_gistFileCounter) + ".txt";
-                        if (_model.Files.ContainsKey(name))
-                            continue;
-                        break;
-                    }
-                }
+                    name = GenerateName();
 
-                if (_model.Files.ContainsKey(name))
+                if (IsDuplicateName(name))
                     throw new InvalidOperationException("A filename by that type already exists");
-                _model.Files.Add(name, new GistCreateModel.File { Content = content });
+                _model.Files[name] = new GistEditModel.File { Content = content };
             };
             NavigationController.PushViewController(createController, true);
         }
@@ -95,24 +115,20 @@ namespace Gistacular.Controllers
             desc.Tapped += ChangeDescription;
             section.Add(desc);
 
-            if (_public == null)
-                _public = new TrueFalseElement("Public"); 
-            _public.Value = _model.Public;
-
-            if (_publicEditable)
-                section.Add(_public);
-
             var fileSection = new Section();
             root.Add(fileSection);
 
             foreach (var file in _model.Files.Keys)
             {
                 var key = file;
-                if (!_model.Files.ContainsKey(key) || _model.Files[file].Content == null)
+                if (!_model.Files.ContainsKey(key) || _model.Files[file] == null || _model.Files[file].Content == null)
                     continue;
 
-                var size = System.Text.ASCIIEncoding.UTF8.GetByteCount(_model.Files[file].Content);
-                var el = new StyledElement(file, size + " bytes", UITableViewCellStyle.Subtitle) { Accessory = UITableViewCellAccessory.DisclosureIndicator };
+                var elName = key;
+                if (_model.Files[key].Filename != null)
+                    elName = _model.Files[key].Filename;
+
+                var el = new FileElement(elName, key, _model.Files[key]);
                 el.Tapped += () => {
                     if (!_model.Files.ContainsKey(key))
                         return;
@@ -123,14 +139,17 @@ namespace Gistacular.Controllers
                             throw new InvalidOperationException("Please enter a name for the file");
 
                         //If different name & exists somewhere else
-                        if (!name.Equals(key) && _model.Files.ContainsKey(name))
-                            throw new InvalidOperationException("A filename by that type already exists");
+                        if (!name.Equals(key))
+                            if (IsDuplicateName(name))
+                                throw new InvalidOperationException("A filename by that type already exists");
 
-                        //Remove old
-                        _model.Files.Remove(key);
-
-                        //Put new
-                        _model.Files[name] = new GistCreateModel.File { Content = content };
+                        if (_originalGist.Files.ContainsKey(key))
+                            _model.Files[key] = new GistEditModel.File { Content = content, Filename = name };
+                        else
+                        {
+                            _model.Files.Remove(key);
+                            _model.Files[name] = new GistEditModel.File { Content = content };
+                        }
                     };
 
                     NavigationController.PushViewController(createController, true);
@@ -158,15 +177,41 @@ namespace Gistacular.Controllers
             return new EditSource(this);
         }
 
-        private void Delete(Element element)
+        private void Delete(Element element, Section section)
         {
-            _model.Files.Remove(element.Caption);
+            var fileEl = element as FileElement;
+            if (fileEl == null)
+                return;
+
+            var key = fileEl.Key;
+            if (_originalGist.Files.ContainsKey(key))
+                _model.Files[key] = null;
+            else
+                _model.Files.Remove(key);
+
+            section.Remove(element);
+        }
+
+        private class FileElement : StyledElement
+        {
+            public readonly GistEditModel.File File;
+            public readonly string Key;
+            public FileElement(string name, string key, GistEditModel.File file)
+                : base(name, String.Empty, UITableViewCellStyle.Subtitle)
+            {
+                File = file;
+                Key = key;
+                Accessory = UITableViewCellAccessory.DisclosureIndicator;
+
+                if (file.Content != null)
+                    Value = System.Text.ASCIIEncoding.UTF8.GetByteCount(file.Content) + " bytes";
+            }
         }
 
         private class EditSource : SizingSource
         {
-            private readonly CreateGistController _parent;
-            public EditSource(CreateGistController dvc) 
+            private readonly EditGistController _parent;
+            public EditSource(EditGistController dvc) 
                 : base (dvc)
             {
                 _parent = dvc;
@@ -191,8 +236,7 @@ namespace Gistacular.Controllers
                     case UITableViewCellEditingStyle.Delete:
                         var section = _parent.Root[indexPath.Section];
                         var element = section[indexPath.Row];
-                        _parent.Delete(element);
-                        section.Remove(element);
+                        _parent.Delete(element, section);
                         break;
                 }
             }

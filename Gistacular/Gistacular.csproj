@@ -149,7 +149,6 @@
     <Compile Include="Controllers\GitHubLoginController.designer.cs" />
     <Compile Include="Views\MenuSectionView.cs" />
     <Compile Include="Controllers\StarredGistsController.cs" />
-    <Compile Include="Controllers\CreateGistController.cs" />
     <Compile Include="Views\NavigationButton.cs" />
     <Compile Include="Controllers\GistInfoController.cs" />
     <Compile Include="Elements\SubcaptionElement.cs" />
@@ -171,6 +170,8 @@
     <Compile Include="Controllers\ModifyGistFileController.designer.cs">
       <DependentUpon>ModifyGistFileController.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\CreateGistController.cs" />
+    <Compile Include="Controllers\EditGistController.cs" />
   </ItemGroup>
   <Import Project="$(ProgramFiles)\MSBuild\MonoTouch\Novell.MonoTouch.Common.targets" Condition="'$(windir)' != '' " />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

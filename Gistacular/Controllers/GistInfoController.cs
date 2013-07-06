@@ -58,6 +58,19 @@ namespace Gistacular.Controllers
             if (owned)
             {
                 NavigationItem.RightBarButtonItem = new UIBarButtonItem(NavigationButton.Create(Images.Buttons.Edit, () => {
+                    //We need to make sure we have the FULL gist
+                    this.DoWork(() => {
+                        var gist = Application.Client.API.GetGist(Id).Data;
+                        InvokeOnMainThread(() => {
+                            var gistController = new EditGistController(gist);
+                            gistController.Created = (id) => {
+                                Model = null;
+                                Refresh();
+                            };
+                            var navController = new UINavigationController(gistController);
+                            PresentViewController(navController, true, null);
+                        });
+                    });
                 }));
             }
             else
@@ -325,7 +338,7 @@ namespace Gistacular.Controllers
             });
 
             UpdateStar();
-            UpdateOwned();
+            InvokeOnMainThread(() => UpdateOwned());
         }
 
         protected override GistModel OnUpdate(bool forced)

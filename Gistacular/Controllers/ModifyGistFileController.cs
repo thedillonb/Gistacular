@@ -78,17 +78,17 @@ namespace Gistacular.Controllers
         void HandleChanged (object sender, EventArgs e)
         {
             UpdateScrollContentSize();
+        }
+
+        void UpdateScrollContentSize()
+        {
+            Scroll.ContentSize = new SizeF(View.Bounds.Width, Text.ContentSize.Height + offsetSize);
             var f = Text.Frame;
             var newHeight = Text.ContentSize.Height;
             if (newHeight < (Scroll.Frame.Height - offsetSize))
                 newHeight = Scroll.Frame.Height - offsetSize;
             Text.Frame = new RectangleF(f.X, f.Y, f.Width, newHeight);
             Console.WriteLine("Frame Height: " + Text.Frame.Height);
-        }
-
-        void UpdateScrollContentSize()
-        {
-            Scroll.ContentSize = new SizeF(View.Bounds.Width, Text.ContentSize.Height + offsetSize);
         }
 
         void KeyboardWillShow (NSNotification notification)
