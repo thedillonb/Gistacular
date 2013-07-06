@@ -95,12 +95,23 @@ namespace Gistacular.Controllers
         {
             base.ViewWillAppear(animated);
             _title.Text = Application.Account.Username;
-            NavigationItem.LeftBarButtonItem = new UIBarButtonItem(new ProfileView(new System.Uri(Application.Account.AvatarUrl)));
+            UpdateProfilePicture();
 
 			var root = new RootElement(Application.Account.Username);
             Title = root.Caption;
 			OnCreateMenu(root);
 			Root = root;
+        }
+
+        private void UpdateProfilePicture()
+        {
+            NavigationItem.LeftBarButtonItem = new UIBarButtonItem(new ProfileView(new System.Uri(Application.Account.AvatarUrl)));
+        }
+
+        public override void DidRotate(UIInterfaceOrientation fromInterfaceOrientation)
+        {
+            base.DidRotate(fromInterfaceOrientation);
+            UpdateProfilePicture();
         }
 
 		private class MenuElement : StyledElement

@@ -10,9 +10,18 @@ namespace Gistacular.Views
         UIImageView _imageView;
 
         public ProfileView(Uri uri)
-            : base(new RectangleF(4, 4, 32, 32))
+            : base()
         {
-            _imageView = new UIImageView(new RectangleF(0, 0, 32, 32));
+            var size = new SizeF(32, 32);
+            if (UIDevice.CurrentDevice.Orientation == UIDeviceOrientation.LandscapeLeft ||
+                UIDevice.CurrentDevice.Orientation == UIDeviceOrientation.LandscapeRight)
+            {
+                size = new SizeF(24, 24);
+            }
+
+            this.Frame = new RectangleF(new PointF(4, 4), size);
+
+            _imageView = new UIImageView(new RectangleF(new PointF(0, 0), size));
             _imageView.Image = ImageLoader.DefaultRequestImage(uri, this);
             _imageView.Layer.MasksToBounds = true;
             _imageView.Layer.CornerRadius = 4.0f;

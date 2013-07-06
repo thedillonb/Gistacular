@@ -109,6 +109,7 @@ namespace Gistacular.Controllers
         {
             base.ViewWillAppear(animated);
             NSNotificationCenter.DefaultCenter.AddObserver (new NSString("UIKeyboardWillShowNotification"), KeyboardWillShow);
+            Name.BecomeFirstResponder();
         }
 
         public override void ViewWillDisappear(bool animated)
