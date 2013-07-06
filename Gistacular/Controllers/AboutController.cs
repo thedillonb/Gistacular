@@ -36,7 +36,7 @@ namespace Gistacular.Controllers
                 new Section(String.Empty, "Thank you for downloading. Enjoy!")
                 {
                     new StyledElement("Follow Me On Twitter", () => UIApplication.SharedApplication.OpenUrl(new NSUrl("https://twitter.com/thedillonb"))),
-                    new StyledElement("Rate This App", () => UIApplication.SharedApplication.OpenUrl(new NSUrl("https://itunes.apple.com/us/app/codebucket/id551531422?mt=8"))),
+                    new StyledElement("Rate This App", () => UIApplication.SharedApplication.OpenUrl(new NSUrl("https://itunes.apple.com/us/app/gistacular/id670505001?ls=1&mt=8"))),
                     new StyledElement("App Version", NSBundle.MainBundle.InfoDictionary.ValueForKey(new NSString("CFBundleVersion")).ToString())
                 }
             };
