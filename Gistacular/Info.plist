@@ -26,7 +26,7 @@
 	<key>CFBundleIdentifier</key>
 	<string>com.dillonbuchanan.gistacular</string>
 	<key>CFBundleVersion</key>
-	<string>1.0.0</string>
+	<string>1.0.1</string>
 	<key>CFBundleDisplayName</key>
 	<string>Gistacular</string>
 	<key>CFBundleIconFiles</key>
@@ -42,5 +42,7 @@
 	</array>
 	<key>UIPrerenderedIcon</key>
 	<true/>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0.1</string>
 </dict>
 </plist>
