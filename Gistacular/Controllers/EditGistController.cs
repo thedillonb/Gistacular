@@ -111,7 +111,7 @@ namespace Gistacular.Controllers
             var section = new Section();
             root.Add(section);
 
-            var desc = new MultilinedElement("Description") { Value = _model.Description };
+            var desc = new Gistacular.Elements.MultilinedElement("Description") { Value = _model.Description };
             desc.Tapped += ChangeDescription;
             section.Add(desc);
 

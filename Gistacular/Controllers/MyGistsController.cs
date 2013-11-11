@@ -32,7 +32,7 @@ namespace Gistacular.Controllers
 
         private void Delete(Element element, Section section)
         {
-            var e = element as NameTimeStringElement;
+            var e = element as Gistacular.Elements.NameTimeStringElement;
             if (e == null || e.Tag == null)
                 return;
 

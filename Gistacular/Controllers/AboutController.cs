@@ -27,7 +27,7 @@ namespace Gistacular.Controllers
             {
                 new Section()
                 {
-                    new MultilinedElement("Gistacular") { Value = About }
+                    new Gistacular.Elements.MultilinedElement("Gistacular") { Value = About }
                 },
                 new Section()
                 {

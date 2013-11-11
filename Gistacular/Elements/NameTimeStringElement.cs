@@ -5,6 +5,7 @@ using System.Drawing;
 using MonoTouch.CoreGraphics;
 using MonoTouch.Dialog.Utilities;
 using MonoTouch.Foundation;
+using MonoTouch.Dialog;
 
 namespace Gistacular.Elements
 {

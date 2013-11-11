@@ -23,7 +23,8 @@
     <ConsolePause>false</ConsolePause>
     <MtouchLink>None</MtouchLink>
     <MtouchDebug>true</MtouchDebug>
-    <MtouchI18n />
+    <MtouchI18n>
+    </MtouchI18n>
     <MtouchArch>ARMv7</MtouchArch>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
@@ -34,7 +35,8 @@
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
     <MtouchLink>None</MtouchLink>
-    <MtouchI18n />
+    <MtouchI18n>
+    </MtouchI18n>
     <MtouchArch>ARMv7</MtouchArch>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
@@ -48,9 +50,11 @@
     <ConsolePause>false</ConsolePause>
     <MtouchDebug>true</MtouchDebug>
     <CodesignKey>iPhone Developer: Dillon Buchanan (BD3M6C4CAK)</CodesignKey>
-    <IpaPackageName />
+    <IpaPackageName>
+    </IpaPackageName>
     <CodesignProvision>70C7B1EC-AE42-41FB-988A-3748879C65E2</CodesignProvision>
-    <MtouchI18n />
+    <MtouchI18n>
+    </MtouchI18n>
     <MtouchArch>ARMv7</MtouchArch>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
@@ -64,8 +68,10 @@
     <CodesignProvision>98565909-F7D4-4C9A-B488-9B49D7AABF97</CodesignProvision>
     <MtouchUseLlvm>true</MtouchUseLlvm>
     <MtouchUseThumb>true</MtouchUseThumb>
-    <IpaPackageName />
-    <MtouchI18n />
+    <IpaPackageName>
+    </IpaPackageName>
+    <MtouchI18n>
+    </MtouchI18n>
     <MtouchArch>ARMv7</MtouchArch>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Ad-Hoc|iPhone' ">
@@ -90,8 +96,10 @@
     <CodesignProvision>98565909-F7D4-4C9A-B488-9B49D7AABF97</CodesignProvision>
     <MtouchUseLlvm>true</MtouchUseLlvm>
     <MtouchUseThumb>true</MtouchUseThumb>
-    <IpaPackageName />
-    <MtouchI18n />
+    <IpaPackageName>
+    </IpaPackageName>
+    <MtouchI18n>
+    </MtouchI18n>
     <MtouchArch>ARMv7</MtouchArch>
   </PropertyGroup>
   <ItemGroup>
@@ -139,9 +147,7 @@
     <Compile Include="Utilities\MbProgressHud.cs" />
     <Compile Include="Elements\CustomElement.cs" />
     <Compile Include="Elements\NameTimeStringElement.cs" />
-    <Compile Include="Utilities\StringExtensions.cs" />
     <Compile Include="Utilities\DateTimeExtensions.cs" />
-    <Compile Include="Views\CellBackgroundView.cs" />
     <Compile Include="Controllers\ListController.cs" />
     <Compile Include="Elements\PaginateElement.cs" />
     <Compile Include="Controllers\MyGistsController.cs" />

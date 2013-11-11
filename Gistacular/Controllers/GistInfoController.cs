@@ -241,7 +241,7 @@ namespace Gistacular.Controllers
                 try
                 {
                     var thisComment = comment;
-                    var sse = new NameTimeStringElement() { 
+                    var sse = new Gistacular.Elements.NameTimeStringElement() { 
                         Time = thisComment.CreatedAt, 
                         String = thisComment.Body, 
                         Lines = 4, 

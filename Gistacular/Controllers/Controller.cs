@@ -179,7 +179,7 @@ namespace Gistacular.Controllers
                 
                 if (sec.Count == 0)
                 {
-                    sec.Add(new NoItemsElement());
+                    sec.Add(new Gistacular.Elements.NoItemsElement());
                 }
                 
                 _searchController.View.BackgroundColor = UIColor.White;

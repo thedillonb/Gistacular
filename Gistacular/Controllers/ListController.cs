@@ -38,14 +38,14 @@ namespace Gistacular.Controllers
         {
             var sec = new Section();
             if (Model.Count == 0)
-                sec.Add(new NoItemsElement());
+                sec.Add(new Gistacular.Elements.NoItemsElement());
             else
                 Model.ForEach(x => sec.Add(CreateElement(x)));
 
             Section loadSec = null;
             if (_nextPage >= 0)
             {
-                _loadMore = new PaginateElement("Load More", "Loading...", e => this.DoWorkNoHud(LoadWork, LoadException, LoadFinished));
+                _loadMore = new Gistacular.Elements.PaginateElement("Load More", "Loading...", e => this.DoWorkNoHud(LoadWork, LoadException, LoadFinished));
                 loadSec = new Section() { _loadMore };
             }
 

@@ -1,6 +1,7 @@
 using System;
 using MonoTouch.UIKit;
 using System.Drawing;
+using MonoTouch.Dialog;
 
 namespace Gistacular.Views
 {

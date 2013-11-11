@@ -12,7 +12,7 @@ namespace Gistacular.Controllers
     public class CreateGistController : BaseDialogViewController
     {
         protected GistCreateModel _model;
-        protected TrueFalseElement _public;
+        protected Gistacular.Elements.TrueFalseElement _public;
         public Action<string> Created;
         protected bool _publicEditable = true;
 
@@ -91,12 +91,12 @@ namespace Gistacular.Controllers
             var section = new Section();
             root.Add(section);
 
-            var desc = new MultilinedElement("Description") { Value = _model.Description };
+            var desc = new Gistacular.Elements.MultilinedElement("Description") { Value = _model.Description };
             desc.Tapped += ChangeDescription;
             section.Add(desc);
 
             if (_public == null)
-                _public = new TrueFalseElement("Public"); 
+                _public = new Gistacular.Elements.TrueFalseElement("Public"); 
             _public.Value = _model.Public;
 
             if (_publicEditable)

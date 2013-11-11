@@ -21,10 +21,10 @@ namespace Gistacular.Controllers
             return element;
         }
 
-        public static NameTimeStringElement CreateGistElement(GistModel x)
+        public static Gistacular.Elements.NameTimeStringElement CreateGistElement(GistModel x)
         {
             var str = string.IsNullOrEmpty(x.Description) ? "No Description" : x.Description;
-            var sse = new NameTimeStringElement() { 
+            var sse = new Gistacular.Elements.NameTimeStringElement() { 
                 Time = x.UpdatedAt, 
                 String = str, 
                 Lines = 4, 
