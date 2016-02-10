@@ -9,11 +9,10 @@ Gistacular is the best way to browse and maintain your GitHub Gists on any iPhon
 ![Screenshot 4](http://a4.mzstatic.com/us/r1000/046/Purple6/v4/fc/31/4a/fc314ae8-0a0d-7111-1f9c-1f6936ac68c0/mzl.hxnsubjj.320x480-75.jpg)&nbsp;
 ![Screenshot 5](http://a3.mzstatic.com/us/r1000/028/Purple4/v4/ba/cc/09/bacc09b4-204d-0234-708f-70f90eec6b29/mzl.siikfpdu.320x480-75.jpg)&nbsp;
 
-Support
+Deprecation Notice
 -----------
 
-Follow me on Twitter [@thedillonb](http://www.twitter.com/thedillonb)
-Comment on [UserVoice](http://gistacular.uservoice.com/)
+This project is no longer for sale in the iTunes Store. 
 
 License
 -----------------
